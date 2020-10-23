@@ -1,4 +1,5 @@
 import mysql.connector
+import configparser
 from mysql.connector import Error
 
 #return connection to sql
@@ -16,6 +17,21 @@ def create_connection(host_name, user_name, user_password,db):
         print(f"The error '{e}' occurred")
 
     return connection
+
+#Function to run SQL query. Pass function from map_data.py return results of util function.   
+def get_connection():
+    #get sql credentials from config file
+    config = configparser.ConfigParser()
+    config.read('config.ini')
+    host=config.get('mysql','host')
+    username=config.get('mysql','username')
+    password=config.get('mysql','password')
+    database=config.get('mysql','db')
+
+    #connect to database
+    connection=create_connection(host,username,password,database)
+
+    return(connection)
 
 #return a list of tuples -> tuple[0] name, tuple[1] lat, tuple[2] lon
 def get_locations(connection):
@@ -40,6 +56,15 @@ def get_max_infections(connection):
     result=cursor.fetchone()
     
     return(result['MAX(case_count)'])
+
+#get case count for given location
+def get_case_count(connection,location):
+    query = ('SELECT case_count FROM campus_locations WHERE name= %s',(location))
+    cursor=connection.cursor(dictionary=True)
+    cursor.execute(query,location)
+    result=cursor.fetchone()
+    return(result['case_count'])
+    
 
 #return a list of tuples containing lat lon and case count of locations that have seen cases
 def get_infected_locations(connection):

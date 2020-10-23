@@ -36,17 +36,16 @@ def index():
     heat_group=folium.FeatureGroup(name="Heat Data",show=True)
     stockton_map.add_child(heat_group)
     
-
     #get all the known locations on campus
-    locations=run_query(md.get_locations)
+    locations=md.get_locations(md.get_connection())
 
     #drop a pin on all known buildings
     for loc in locations:
         folium.Marker(location=[loc[1],loc[2]],popup=loc[0]).add_to(marker_group)
-        #print(md.get_case_count(loc[0]))
+        
 
     #overlay heatmap
-    infections=run_query(md.get_infected_locations)
+    infections=md.get_infected_locations(md.get_connection())
     HeatMap(infections,radius=30).add_to(heat_group)
 
     #allow user to show or hide layers (heat and markers)
@@ -55,21 +54,7 @@ def index():
     return stockton_map._repr_html_()
 
 
-#Function to run SQL query. Pass function from map_data.py return results of util function.   
-def run_query(function):
-    #get sql credentials from config file
-    config = configparser.ConfigParser()
-    config.read('config.ini')
-    host=config.get('mysql','host')
-    username=config.get('mysql','username')
-    password=config.get('mysql','password')
-    database=config.get('mysql','db')
 
-    #connect to database
-    connection=md.create_connection(host,username,password,database)
-    
-
-    return(function(connection))
     
 
 if __name__ == '__main__':
