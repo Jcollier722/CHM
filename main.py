@@ -41,9 +41,10 @@ def index():
 
     #drop a pin on all known buildings
     for loc in locations:
-        folium.Marker(location=[loc[1],loc[2]],popup=loc[0]).add_to(marker_group)
-        
+        folium.Marker(location=[loc[1],loc[2]],popup=(loc[0]+" Cases: "+str(loc[3]))).add_to(marker_group)
 
+        
+    
     #overlay heatmap
     infections=md.get_infected_locations(md.get_connection())
     HeatMap(infections,radius=30).add_to(heat_group)

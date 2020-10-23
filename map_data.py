@@ -43,7 +43,7 @@ def get_locations(connection):
     cursor.execute(query)
     result=cursor.fetchall()
     for row in result:
-        locations.append((row['name'],row['lat'],row['lon']))
+        locations.append((row['name'],row['lat'],row['lon'],row['case_count']))
 
     return locations
 
@@ -57,14 +57,6 @@ def get_max_infections(connection):
     
     return(result['MAX(case_count)'])
 
-#get case count for given location
-def get_case_count(connection,location):
-    query = ('SELECT case_count FROM campus_locations WHERE name= %s',(location))
-    cursor=connection.cursor(dictionary=True)
-    cursor.execute(query,location)
-    result=cursor.fetchone()
-    return(result['case_count'])
-    
 
 #return a list of tuples containing lat lon and case count of locations that have seen cases
 def get_infected_locations(connection):
