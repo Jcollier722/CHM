@@ -38,14 +38,15 @@ def index():
     
 
     #get all the known locations on campus
-    locations=get_locations()
+    locations=run_query(md.get_locations)
 
     #drop a pin on all known buildings
     for loc in locations:
         folium.Marker(location=[loc[1],loc[2]],popup=loc[0]).add_to(marker_group)
+        #print(md.get_case_count(loc[0]))
 
     #overlay heatmap
-    infections=get_infections()
+    infections=run_query(md.get_infected_locations)
     HeatMap(infections,radius=30).add_to(heat_group)
 
     #allow user to show or hide layers (heat and markers)
@@ -53,7 +54,9 @@ def index():
     
     return stockton_map._repr_html_()
 
-def get_locations():
+
+#Function to run SQL query. Pass function from map_data.py return results of util function.   
+def run_query(function):
     #get sql credentials from config file
     config = configparser.ConfigParser()
     config.read('config.ini')
@@ -64,33 +67,10 @@ def get_locations():
 
     #connect to database
     connection=md.create_connection(host,username,password,database)
-
-    #get a list of tuples to represent locations at Stockton
-    locations = md.get_locations(connection)
-
-    #close connection to db
-    connection.close()
-    print("connection closed")
-    
-    return locations
-
-def get_infections():
-    #get sql credentials from config file
-    config = configparser.ConfigParser()
-    config.read('config.ini')
-    host=config.get('mysql','host')
-    username=config.get('mysql','username')
-    password=config.get('mysql','password')
-    database=config.get('mysql','db')
-
-    #connect to database
-    connection=md.create_connection(host,username,password,database)
-
-    #md.get_max_infections(connection)
-
-    return(md.get_infected_locations(connection))
     
 
+    return(function(connection))
+    
 
 if __name__ == '__main__':
     app.run()
