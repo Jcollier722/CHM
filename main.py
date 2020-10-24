@@ -15,14 +15,6 @@ def index():
     #Stockon University Lat and Lon
     start_coords = (39.4920,-74.5305)
     stockton_map = folium.Map(location=start_coords, zoom_start=16)
-
-    df = md.get_table_as_df(md.get_connection())
-    stockton_map.choropleth(geo_data='stockton.geojson',
-                            data=df,
-                            columns=['name','case_count'],
-                            key_on='feature.properties.name',
-                            fill_color = 'OrRd'
-                            )
     
     #create a colormap for legend
     #colormap = cm.LinearColormap(colors=['lightblue','green','yellow','red'], index=[0,25,50,100],vmin=0,vmax=100)
@@ -33,8 +25,17 @@ def index():
     stockton_map.add_child(marker_group)
 
     #feature group for heat data
-    heat_group=folium.FeatureGroup(name="Heat Data",show=True)
+    heat_group=folium.FeatureGroup(name="View by area",show=False)
     stockton_map.add_child(heat_group)
+
+
+    df = md.get_table_as_df(md.get_connection())
+    folium.Choropleth(name = "View by Building",geo_data='stockton.geojson',
+                            data=df,
+                            columns=['name','case_count'],
+                            key_on='feature.properties.name',
+                            fill_color = 'OrRd'
+                            ).add_to(stockton_map)
     
     #get all the known locations on campus
     locations=md.get_locations(md.get_connection())
@@ -54,8 +55,6 @@ def index():
     return stockton_map._repr_html_()
 
 
-
-    
 
 if __name__ == '__main__':
     app.run()
