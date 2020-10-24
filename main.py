@@ -16,10 +16,10 @@ def index():
     start_coords = (39.4920,-74.5305)
     stockton_map = folium.Map(location=start_coords, zoom_start=16)
 
-    df = pd.read_csv('campus_locations.csv',header=0)
+    df = md.get_table_as_df(md.get_connection())
     stockton_map.choropleth(geo_data='stockton.geojson',
                             data=df,
-                            columns=['name','count'],
+                            columns=['name','case_count'],
                             key_on='feature.properties.name',
                             fill_color = 'OrRd'
                             )
@@ -43,7 +43,6 @@ def index():
     for loc in locations:
         folium.Marker(location=[loc[1],loc[2]],popup=(loc[0]+" Cases: "+str(loc[3]))).add_to(marker_group)
 
-        
     
     #overlay heatmap
     infections=md.get_infected_locations(md.get_connection())

@@ -1,5 +1,6 @@
 import mysql.connector
 import configparser
+import pandas as pd
 from mysql.connector import Error
 
 #return connection to sql
@@ -56,6 +57,11 @@ def get_max_infections(connection):
     result=cursor.fetchone()
     
     return(result['MAX(case_count)'])
+
+def get_table_as_df(connection):
+    df = pd.read_sql('SELECT * FROM campus_locations',connection)
+    return df
+    
 
 
 #return a list of tuples containing lat lon and case count of locations that have seen cases
