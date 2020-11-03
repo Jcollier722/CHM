@@ -1,4 +1,7 @@
 from flask import Flask
+from flask import Flask, render_template, request, redirect, url_for, session
+from flask_nav import Nav
+from flask_nav.elements import *
 import folium
 from folium.plugins import HeatMap
 from folium.plugins import MarkerCluster
@@ -8,17 +11,32 @@ import map_data as md
 import branca.colormap as cm
 import configparser
 import json
-app = Flask(__name__)
 
-@app.route('/')
-def index():
+app = Flask(__name__)
+nav = Nav(app)
+
+nav.register_element('navbar',Navbar('thenav',
+                     View('Home','index'),
+                     View('Take the Questionnaire','test'),
+                     View('Administrator Login','login'),
+                     View('View the Heatmap','heatmap'),
+                                     ))
+@nav.navigation()
+def mynavbar():
+    return Navbar(
+        'mysite',
+        View('Home', 'index'),
+    )
+
+@app.route('/heat', methods=['GET', 'POST'])
+def heatmap():
     #Stockon University Lat and Lon
     start_coords = (39.4920,-74.5305)
     stockton_map = folium.Map(location=start_coords, zoom_start=16)
     
     #create a colormap for legend
-    #colormap = cm.LinearColormap(colors=['lightblue','green','yellow','red'], index=[0,25,50,100],vmin=0,vmax=100)
-    #colormap.add_to(stockton_map)
+    colormap = cm.LinearColormap(colors=['lightblue','green','yellow','red'], index=[0,25,50,100],vmin=0,vmax=100)
+    colormap.add_to(stockton_map)
 
     #feature group to store location markers
     marker_group=folium.FeatureGroup(name="Building Markers",show=True)
@@ -54,7 +72,19 @@ def index():
     
     return stockton_map._repr_html_()
 
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    return render_template('index.html')
 
+@app.route('/adminLogin', methods=['GET', 'POST'])
+def login():
+    return render_template('adminLogin.html')
+
+@app.route('/test', methods=['GET', 'POST'])
+def test():
+    return render_template('test.html')
+    
+    
 
 if __name__ == '__main__':
     app.run()
