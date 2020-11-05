@@ -19,8 +19,7 @@ nav.register_element('navbar',Navbar('thenav',
                      View('Home','index'),
                      View('Take the Questionnaire','test'),
                      View('Administrator Login','login'),
-                     View('View the Heatmap','heatmap'),
-                                     ))
+                     View('View the Heatmap','heatmap'),))
 @nav.navigation()
 def mynavbar():
     return Navbar(
@@ -78,7 +77,16 @@ def index():
 
 @app.route('/adminLogin', methods=['GET', 'POST'])
 def login():
-    return render_template('adminLogin.html')
+    error = None
+    if request.method == 'POST':
+        login_attempt=md.get_login(md.get_connection(),request.form['username'],request.form['password'])
+        if(login_attempt != None):
+            if request.form['username'] != login_attempt['username'] or request.form['password'] != login_attempt['password']:
+                error = 'Invalid Credentials. Please try again.'
+            else:
+                return redirect(url_for('index'))
+    
+    return render_template('adminLogin.html', error=error)
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():

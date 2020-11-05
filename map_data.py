@@ -63,7 +63,6 @@ def get_table_as_df(connection):
     return df
     
 
-
 #return a list of tuples containing lat lon and case count of locations that have seen cases
 def get_infected_locations(connection):
     results=[]
@@ -76,4 +75,13 @@ def get_infected_locations(connection):
         results.append((((row['lat'],row['lon'],row['case_count']))))
 
     return results
+
+def get_login(connection,username,password):
+    cursor=connection.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM login WHERE username= %s AND password = %s", (username, password,))
+    account=cursor.fetchone()
+    return(account)
+
+    
+
     
