@@ -77,7 +77,7 @@ def index():
 
 @app.route('/adminLogin', methods=['GET', 'POST'])
 def login():
-    error = None
+    error = ''
     if request.method == 'POST':
         login_attempt=md.get_login(md.get_connection(),request.form['username'],request.form['password'])
         if(login_attempt != None):
@@ -85,7 +85,8 @@ def login():
                 error = 'Invalid Credentials. Please try again.'
             else:
                 return redirect(url_for('index'))
-    
+        error = 'Invalid Credentials. Please try again.'
+    print(error)
     return render_template('adminLogin.html', error=error)
 
 @app.route('/test', methods=['GET', 'POST'])
