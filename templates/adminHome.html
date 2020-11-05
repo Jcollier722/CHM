@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+  {{ super() }}
+ {% endblock %}
+
+{% block content %}
+    <h1>Welcome Admin</h1>
+
+<form class="form-horizontal" action="/adminHome" method="POST" 
+style = "border-style: solid;"> 
+
+<fieldset>
+		<!-- Form Name -->
+		<legend>Add a location</legend>
+		<!-- Text input-->
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="textinput">Location Name</label>  
+		  <div class="col-md-4">
+		  <input id="textinput" name="name" type="text" placeholder="" class="form-control input-md" required="">   
+		  </div>
+		</div>
+		<!-- Text input-->
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="textinput">Location Longitude</label>  
+		  <div class="col-md-4">
+		  <input id="textinput" name="lon" type="text" placeholder="" class="form-control input-md">
+		  </div>
+		</div>
+		<!-- Text input-->
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="textinput">Location Latitude</label>  
+		  <div class="col-md-4">
+		  <input id="textinput" name="lat" type="text" placeholder="" class="form-control input-md">
+		    
+		  </div>
+		</div>
+		<!-- Button -->
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="singlebutton"></label>
+		  <div class="col-md-4">
+		    <input type="submit" value="Submit" class="btn btn-primary"></button>
+		  </div>
+		</div>
+		</fieldset>
+</form>
+
+
+    
+ {% endblock %}

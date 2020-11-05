@@ -8,6 +8,8 @@ from folium.plugins import MarkerCluster
 from collections import defaultdict
 import pandas as pd
 import map_data as md
+import admin as ad
+import db
 import branca.colormap as cm
 import configparser
 import json
@@ -35,7 +37,7 @@ def heatmap():
     stockton_map.add_child(heat_group)
 
 
-    df = md.get_table_as_df(md.get_connection())
+    df = md.get_table_as_df(db.get_connection())
     folium.Choropleth(name = "View by Building",geo_data='stockton.geojson',
                             data=df,
                             columns=['name','case_count'],
@@ -44,14 +46,14 @@ def heatmap():
                             ).add_to(stockton_map)
     
     #get all the known locations on campus
-    locations=md.get_locations(md.get_connection())
+    locations=md.get_locations(db.get_connection())
 
     #drop a pin on all known buildings
     for loc in locations:
         folium.Marker(location=[loc[1],loc[2]],popup=(loc[0]+" Cases: "+str(loc[3]))).add_to(marker_group)
 
     #overlay heatmap
-    infections=md.get_infected_locations(md.get_connection())
+    infections=md.get_infected_locations(db.get_connection())
     HeatMap(infections,radius=30).add_to(heat_group)
 
     #allow user to show or hide layers (heat and markers)
@@ -68,7 +70,7 @@ def index():
 def login():
     error = ''
     if request.method == 'POST':
-        login_attempt=md.get_login(md.get_connection(),request.form['username'],request.form['password'])
+        login_attempt=md.get_login(db.get_connection(),request.form['username'],request.form['password'])
         if(login_attempt != None):
             if request.form['username'] != login_attempt['username'] or request.form['password'] != login_attempt['password']:
                 error = 'Invalid Credentials. Please try again.'
@@ -85,6 +87,9 @@ def test():
 
 @app.route('/adminHome', methods=['GET', 'POST'])
 def admin_home():
+    if request.method == 'POST':
+        print(ad.add_location(db.get_connection(),request.form['name'],request.form['lon'],request.form['lat']))
+        
     return render_template('adminHome.html')
     
 
