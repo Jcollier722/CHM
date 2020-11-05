@@ -13,19 +13,8 @@ import configparser
 import json
 
 app = Flask(__name__)
-nav = Nav(app)
+app.secret_key='stockton'
 
-nav.register_element('navbar',Navbar('thenav',
-                     View('Home','index'),
-                     View('Take the Questionnaire','test'),
-                     View('Administrator Login','login'),
-                     View('View the Heatmap','heatmap'),))
-@nav.navigation()
-def mynavbar():
-    return Navbar(
-        'mysite',
-        View('Home', 'index'),
-    )
 
 @app.route('/heat', methods=['GET', 'POST'])
 def heatmap():
@@ -61,7 +50,6 @@ def heatmap():
     for loc in locations:
         folium.Marker(location=[loc[1],loc[2]],popup=(loc[0]+" Cases: "+str(loc[3]))).add_to(marker_group)
 
-    
     #overlay heatmap
     infections=md.get_infected_locations(md.get_connection())
     HeatMap(infections,radius=30).add_to(heat_group)
@@ -75,6 +63,7 @@ def heatmap():
 def index():
     return render_template('index.html')
 
+#validate login and create session
 @app.route('/adminLogin', methods=['GET', 'POST'])
 def login():
     error = ''
@@ -84,15 +73,19 @@ def login():
             if request.form['username'] != login_attempt['username'] or request.form['password'] != login_attempt['password']:
                 error = 'Invalid Credentials. Please try again.'
             else:
-                return redirect(url_for('index'))
+                session['loggedin']=True
+                session['username']=login_attempt['username']
+                return redirect(url_for('admin_home'))
         error = 'Invalid Credentials. Please try again.'
-    print(error)
     return render_template('adminLogin.html', error=error)
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     return render_template('test.html')
-    
+
+@app.route('/adminHome', methods=['GET', 'POST'])
+def admin_home():
+    return render_template('adminHome.html')
     
 
 if __name__ == '__main__':

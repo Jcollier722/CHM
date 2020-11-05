@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <title>Page Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+  {{ super() }}
+ {% endblock %}
 
-    {{nav.navbar.render()}}
- 
-
-    <h1>This is the home page.</h1>
+{% block content %}
+  <h1>This is the home page.</h1>
     <p>User will have a button the brings them to the questionnaire below, or they can use the navigation bar above.</p>
-
-</body>
-</html>
+ {% endblock %}
