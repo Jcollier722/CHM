@@ -110,6 +110,12 @@ def admin_home():
                 print(ad.add_user(db.get_connection(),request.form['username'],request.form['password']))
                 #refresh on self so form is cleared after successful entry
                 return redirect(url_for('admin_home'))
+
+            #log user out
+            elif request.form["myforms"]=="logout":
+                #clear session cookie
+                session["loggedin"]=False
+                return redirect(url_for('index'))
             
         return render_template('adminHome.html',location_list=location_list,user=session['username'])
 

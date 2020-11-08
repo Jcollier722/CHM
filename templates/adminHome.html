@@ -7,6 +7,24 @@
 {% block content %}
     <h1>Welcome {{user}}</h1>
 
+<style type="text/css">
+		#topright {
+		    position: absolute;
+		    right: 0;
+		    top: 0;
+		}
+
+		
+</style>
+
+<form method="POST" >
+<div id="topright">
+<input type="hidden" name="myforms" value="logout">
+<input type="image" name="logout" id="image" alt="Login"
+       src="http://jakecollier.tech/images/button_logout.png">
+</div>
+</form>
+
 <form class="form-horizontal" action="/adminHome" method="POST" 
 style = "border-style: solid; float:left; width: 50%;"> 
 
