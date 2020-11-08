@@ -88,6 +88,7 @@ def test():
 @app.route('/adminHome', methods=['GET', 'POST'])
 def admin_home():
 
+    #only allow users to see if this page if they have had a successful login attempt
     if(len(session)!=0 and session['loggedin']==True):
         #get locations for drop-down menu
         location_list=ad.get_location_list(db.get_connection())
@@ -106,7 +107,7 @@ def admin_home():
                 #refresh on self so form is cleared after successful entry
                 return redirect(url_for('admin_home'))
             
-        return render_template('adminHome.html',location_list=location_list)
+        return render_template('adminHome.html',location_list=location_list,user=session['username'])
 
     else:
         return 'Sorry, you must login to view this page'
