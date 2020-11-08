@@ -87,10 +87,14 @@ def test():
 
 @app.route('/adminHome', methods=['GET', 'POST'])
 def admin_home():
+
+    #get locations for drop-down menu
+    location_list=ad.get_location_list(db.get_connection())
+   
     if request.method == 'POST':
         print(ad.add_location(db.get_connection(),request.form['name'],request.form['lon'],request.form['lat']))
         
-    return render_template('adminHome.html')
+    return render_template('adminHome.html',location_list=location_list)
     
 
 if __name__ == '__main__':
