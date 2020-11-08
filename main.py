@@ -88,14 +88,29 @@ def test():
 @app.route('/adminHome', methods=['GET', 'POST'])
 def admin_home():
 
-    #get locations for drop-down menu
-    location_list=ad.get_location_list(db.get_connection())
-   
-    if request.method == 'POST':
-        print(ad.add_location(db.get_connection(),request.form['name'],request.form['lon'],request.form['lat']))
+    if(len(session)!=0 and session['loggedin']==True):
+        #get locations for drop-down menu
+        location_list=ad.get_location_list(db.get_connection())
         
-    return render_template('adminHome.html',location_list=location_list)
-    
+        #check if any forms submitted
+        if request.method == 'POST':
+            #check hidden input text value to differentiate between forms
+            #add location
+            if request.form["locations"]=="add loc":
+                print(ad.add_location(db.get_connection(),request.form['name'],request.form['lon'],request.form['lat']))
+                #refresh on self so form is cleared after successful entry
+                return redirect(url_for('admin_home'))
+            #remove location
+            elif request.form["locations"]=="rem loc":
+                print(ad.remove_location(db.get_connection(),request.form['selectbasic']))
+                #refresh on self so form is cleared after successful entry
+                return redirect(url_for('admin_home'))
+            
+        return render_template('adminHome.html',location_list=location_list)
 
+    else:
+        return 'Sorry, you must login to view this page'
+
+    
 if __name__ == '__main__':
     app.run()

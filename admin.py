@@ -8,9 +8,20 @@ def add_location(connection,name,lat,lon):
     cursor=connection.cursor(dictionary=True)
     try:
         cursor.execute('INSERT INTO `campus_locations` (`name`, `lat`, `lon`) VALUES (%s, %s, %s)',(name, lat,lon,))
-        return("Success")
+        connection.commit()
+        return("Success add")
     except Exception as e:
         return (e)
+
+def remove_location(connection,name):
+    try:
+        cursor=connection.cursor(dictionary=True)
+        cursor.execute('DELETE FROM `campus_locations` WHERE name = %s',(name,))
+        connection.commit()
+        return("Success remove")
+    except Exception as e:
+        return (e)
+        
 
 def get_location_list(connection):
     cursor=connection.cursor(dictionary=True)
@@ -18,5 +29,5 @@ def get_location_list(connection):
         cursor.execute('SELECT name FROM campus_locations')
         return (cursor.fetchall())
     except Exception as e:
-        returm (e)
+        return (e)
 

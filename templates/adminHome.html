@@ -10,6 +10,8 @@
 <form class="form-horizontal" action="/adminHome" method="POST" 
 style = "border-style: solid; float:left; width: 50%;"> 
 
+<input type="hidden" name="locations" value="add loc">
+
 <fieldset>
 		<!-- Form Name -->
 		<legend>Add a location</legend>
@@ -46,6 +48,9 @@ style = "border-style: solid; float:left; width: 50%;">
 </form>
 
 <form class="form-horizontal" action="/adminHome" method="POST" style = "border-style: solid; float:left;width: 50%;">
+
+<input type="hidden" name="locations" value="rem loc">
+
 <fieldset>
 
 <!-- Form Name -->
@@ -57,17 +62,16 @@ style = "border-style: solid; float:left; width: 50%;">
   <div class="col-md-4">
     <select id="selectbasic" name="selectbasic" class="form-control">
       {% for c in location_list %}
-		<OPTION value={{c.name}}>{{c.name}}</option>
-	{% endfor %}
+		<OPTION value="{{c.name}}">{{c.name}}</option>
+	  {% endfor %}
     </select>
   </div>
 </div>
 
 <!-- Button -->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="">Submit</label>
   <div class="col-md-4">
-    <button id="" name="" class="btn btn-primary">Button</button>
+    <button id="" name="" class="btn btn-primary">Submit</button>
   </div>
 </div>
 
