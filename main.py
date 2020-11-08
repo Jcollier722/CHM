@@ -96,13 +96,18 @@ def admin_home():
         if request.method == 'POST':
             #check hidden input text value to differentiate between forms
             #add location
-            if request.form["locations"]=="add loc":
+            if request.form["myforms"]=="add loc":
                 print(ad.add_location(db.get_connection(),request.form['name'],request.form['lon'],request.form['lat']))
                 #refresh on self so form is cleared after successful entry
                 return redirect(url_for('admin_home'))
             #remove location
-            elif request.form["locations"]=="rem loc":
+            elif request.form["myforms"]=="rem loc":
                 print(ad.remove_location(db.get_connection(),request.form['selectbasic']))
+                #refresh on self so form is cleared after successful entry
+                return redirect(url_for('admin_home'))
+
+            elif request.form["myforms"]=="add user":
+                print(ad.add_user(db.get_connection(),request.form['username'],request.form['password']))
                 #refresh on self so form is cleared after successful entry
                 return redirect(url_for('admin_home'))
             

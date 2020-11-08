@@ -1,5 +1,6 @@
 import mysql.connector
 import configparser
+import traceback
 from mysql.connector import Error
 
 
@@ -12,7 +13,8 @@ def add_location(connection,name,lat,lon):
         return("Success add")
     except Exception as e:
         return (e)
-
+    
+#remove location from db
 def remove_location(connection,name):
     try:
         cursor=connection.cursor(dictionary=True)
@@ -21,8 +23,8 @@ def remove_location(connection,name):
         return("Success remove")
     except Exception as e:
         return (e)
-        
-
+    
+#get list of locations as a dictonary        
 def get_location_list(connection):
     cursor=connection.cursor(dictionary=True)
     try:
@@ -31,3 +33,15 @@ def get_location_list(connection):
     except Exception as e:
         return (e)
 
+#add a new admin
+def add_user(connection,username,password):
+    cursor=connection.cursor(dictionary=True)
+    try:
+        cursor.execute('INSERT INTO `login`(`username`, `password`) VALUES (%s,%s)',(username,password,))
+        connection.commit()
+        return("Success add user")
+    except Exception as e:
+        return (traceback.print_exc())
+
+
+        
