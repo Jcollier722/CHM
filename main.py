@@ -87,7 +87,6 @@ def test():
 
 @app.route('/adminHome', methods=['GET', 'POST'])
 def admin_home():
-
     #only allow users to see if this page if they have had a successful login attempt
     if(len(session)!=0 and session['loggedin']==True):
         #get locations for drop-down menu
