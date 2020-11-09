@@ -14,9 +14,9 @@ import branca.colormap as cm
 import configparser
 import json
 
+#name the app
 app = Flask(__name__)
 app.secret_key='stockton'
-
 
 @app.route('/heat', methods=['GET', 'POST'])
 def heatmap():
