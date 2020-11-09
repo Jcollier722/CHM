@@ -1,10 +1,35 @@
-{% extends "base.html" %}
-{% block title %}Home{% endblock %}
-{% block head %}
-  {{ super() }}
- {% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>COVID-19 Self-Assessment Questionnaire</title>
+</head>
+<nav>
+    <ul>
+        <li><a href="index.html">About</a></li>
+        <li><a href="test.html">Self Assessment</a></li>
+    </ul>
+</nav>
+<style>
+    .button {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
 
-{% block content %}
-  <h1>This is the home page.</h1>
-    <p>User will have a button the brings them to the questionnaire below, or they can use the navigation bar above.</p>
- {% endblock %}
+.button1 {background-color: #008CBA;}
+
+</style>
+<body>
+
+    <h1>Welcome to the COVID-19 Self-Assessment test</h1>
+        <p>Click on the button below to navigate to the testing page.</p>
+        <button class="button button1" onclick="">Test</button>
+
+</body>
+</html>
