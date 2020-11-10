@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<head>
+  <title>{% block title %}{% endblock %}</title>
+      <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body style="background-color:#3498DB;">
+	
+  <div id="content">{% block content %}{% endblock %}</div>
+
+  <header>{% block head %}{% endblock %}</header>
+  {% block body %}{% endblock %}
+
+</body>
+</html>

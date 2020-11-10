@@ -22,7 +22,7 @@ app.secret_key='stockton'
 def heatmap():
     #Stockon University Lat and Lon
     start_coords = (39.4920,-74.5305)
-    stockton_map = folium.Map(location=start_coords, zoom_start=16)
+    stockton_map = folium.Map(location=start_coords, zoom_start=16,width='100%',height='90%')
     
     #create a colormap for legend
     colormap = cm.LinearColormap(colors=['lightblue','green','yellow','red'], index=[0,25,50,100],vmin=0,vmax=100)
@@ -58,8 +58,10 @@ def heatmap():
 
     #allow user to show or hide layers (heat and markers)
     folium.LayerControl().add_to(stockton_map)
+
+    stockton_map.save('templates/hmap.html')
     
-    return stockton_map._repr_html_()
+    return render_template('heatmap.html')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
