@@ -141,8 +141,80 @@ style = "border-style: solid; width:100%;
 </fieldset>
 </form>
 
+<form class="form-horizontal" action="/adminHome" method="POST" style = "border-style: solid; width:100%;
+	position: relative;
+    top: 53%;
+    left: 0%;">
+	<input type="hidden" name="myforms" value="add sym">
+<fieldset>
 
+<!-- Form Name -->
+<legend>Add Symptom</legend>
 
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="selectbasic">Cluster</label>
+  <div class="col-md-4">
+    <select id="selectbasic" name="cluster" class="form-control">
+      {% for c in cluster_list %}
+		<OPTION value="{{c.cluster_id}}">{{c.cluster_id}}</option>
+	  {% endfor %}
+    </select>
+  </div>
+</div>
 
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Symptom </label>  
+  <div class="col-md-4">
+  <input id="textinput" name="sym" type="text" placeholder="" class="form-control input-md">
     
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-4">
+    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Submit</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
+<form class="form-horizontal" action="/adminHome" method="POST" style = "border-style: solid; width:100%;
+	position: relative;
+    top: 53%;
+    left: 0%;">
+	<input type="hidden" name="myforms" value="rem sym">
+<fieldset>
+<!-- Form Name -->
+<legend>Delete Symptom</legend>
+
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="selectbasic">Cluster</label>
+  <div class="col-md-4">
+    <select id="selectbasic" name="sym" class="form-control">
+      {% for c in sym_list %}
+		<OPTION value="{{c.name}}">{{c.name}}</option>
+	  {% endfor %}
+    </select>
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-4">
+    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Submit</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
  {% endblock %}

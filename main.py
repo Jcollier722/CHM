@@ -89,8 +89,14 @@ def test():
 def admin_home():
     #only allow users to see if this page if they have had a successful login attempt
     if(len(session)!=0 and session['loggedin']==True):
+        
         #get locations for drop-down menu
         location_list=ad.get_location_list(db.get_connection())
+
+        #get cluster for drop down menu
+        cluster_list = ad.get_cluster_list(db.get_connection())
+
+        sym_list= ad.get_sym_list(db.get_connection())
         
         #check if any forms submitted
         if request.method == 'POST':
@@ -111,13 +117,27 @@ def admin_home():
                 #refresh on self so form is cleared after successful entry
                 return redirect(url_for('admin_home'))
 
+            elif request.form["myforms"]=="add sym":
+                print(ad.add_sym(db.get_connection(),request.form['sym'],request.form['cluster']))             
+                #refresh on self so form is cleared after successful entry
+                return redirect(url_for('admin_home'))
+            
+            elif request.form["myforms"]=="rem sym":
+                print(ad.rem_sym(db.get_connection(),request.form['sym']))             
+                #refresh on self so form is cleared after successful entry
+                return redirect(url_for('admin_home'))
+
             #log user out
             elif request.form["myforms"]=="logout":
                 #clear session cookie
                 session["loggedin"]=False
                 return redirect(url_for('index'))
             
-        return render_template('adminHome.html',location_list=location_list,user=session['username'])
+        return render_template('adminHome.html',
+                               location_list=location_list,
+                               cluster_list=cluster_list,
+                               sym_list=sym_list,
+                               user=session['username'])
 
     else:
         return 'Sorry, you must login to view this page'
