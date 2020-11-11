@@ -85,7 +85,8 @@ def login():
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
-    return render_template('test.html')
+    sym_list= ad.get_sym_list(db.get_connection())
+    return render_template('test.html',sym_list=sym_list)
 
 @app.route('/adminHome', methods=['GET', 'POST'])
 def admin_home():

@@ -1,10 +1,33 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Foo{% endblock %}
 {% block head %}
   {{ super() }}
  {% endblock %}
 
 {% block content %}
-    <h1>This is the page that will have the questionnaire.</h1>
-    <p>The user will be given questions to answer here.</p>
+<body>
+<h1 style="margin:90px; 
+text-align:center; 
+padding:20px; 
+background-color:white; 
+border-style:solid; 
+border-color:black; 
+border-width:3px;"
+>COVID-19 Self-Assessment</h1>
+
+<div style = "margin:90px; background-color:white; padding:20px; font-size:20px; border-style:solid; border-color:black; border-width:3px;">
+        <p style="font-weight: bold; font-size:25px;">Are you experiencing any of the following? Choose all that apply.</p>
+
+            {% for c in sym_list %}
+            <input type="checkbox" id="{{c.name}}" name="{{c.name}}" value="{{c.name}}">
+            	<label for="{{c.name}}">{{c.name}}</label><br>
+            {% endfor %}
+            
+</div>
+
+<footer>
+    <button class="submit" style="float: right; margin-bottom: 40px;margin-right: 40px;">Submit Responses</button>
+</footer>
+
+</body>
  {% endblock %}
