@@ -3,28 +3,173 @@
 <head>
     <title>COVID-19 Self-Assessment Questionnaire</title>
 </head>
+<style>
+header{
+    background-color: black;
+}
+
+body{
+    background-color: #3498DB;
+    font-family: Arial;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    border:black;
+    border-style:solid;
+    border-width: 3px;
+}
+li {
+    float: left;
+}
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+li a:hover {
+    background-color: black;
+    color: white;
+}
+
+.submit{
+    color:black;
+    background-color:white;
+    padding: 15px 32px;
+    text-align:center;
+    font-size: 16px;
+    border-color:black;
+    border-width: 3px;
+}
+
+.submit:hover{
+    background-color:black;
+    color:white;
+}
+
+</style>
 <nav>
     <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="test.html">Test</a></li>
+        <li><a href="adminLogin.html">Admin Login</a></li>
+        <li><a href="heatmap.html">Heatmap</a></li>
     </ul>
 </nav>
 <body>
+    <h1 style="margin:90px; text-align:center; padding:20px; background-color:white; border-style:solid; border-color:black; border-width:3px;">COVID-19 Self-Assessment</h1>
+<div style = "margin:90px; background-color:white; padding:20px; font-size:20px; border-style:solid; border-color:black; border-width:3px;">
+        <p style="font-weight: bold; font-size:25px;">Answer each question as accurately as possible.</p>
 
-    <h1>COVID-19 Self-Assessment</h1>
-        <p>Answer each question as accurately as possible.</p>
+            <p>1. Are you experiencing any of the following? <br> &nbsp;&nbsp;&nbsp;&nbsp;Choose all that apply.</p>
 
-            <p>1. Are you experiencing any of the following?</p>
+            <input type="checkbox" id="symptom1" name="symptom1" value="symptom1">
+            <label for="symptom1">Extreme difficulty breathing</label><br>
+            
+            <input type="checkbox" id="symptom2" name="symptom2" value="symptom2">
+            <label for="symptom1">Blue-colored lips or face</label><br>
+            
+            <input type="checkbox" id="symptom3" name="symptom3" value="symptom3">
+            <label for="symptom1">Severe pain or pressure in the chests</label><br>
 
-            <pre>
-             Extreme difficulty breating
-             Blue-Colored lips or face
-             Severe pain or pressure in the chest
-             Severe constant dizziness or light-headedness
-             Acting confused
-             Slurred speech
-             Seizures
-            </pre>
+            <input type="checkbox" id="symptom4" name="symptom4" value="symptom4">
+            <label for="symptom1">Severe constant dizziness or light-headedness</label><br>
+
+            <input type="checkbox" id="symptom5" name="symptom5" value="symptom5">
+            <label for="symptom1">Acting confused</label><br>
+
+            <input type="checkbox" id="symptom6" name="symptom6" value="symptom6">
+            <label for="symptom1">Slurred Speech</label><br>
+
+            <input type="checkbox" id="symptom7" name="symptom7" value="symptom7">
+            <label for="symptom1">Seizures</label><br>
+
+            <p>2. Are you experiencing any of the following? <br> &nbsp;&nbsp;&nbsp;&nbsp;Choose all that apply.</p>
+    
+            <input type="checkbox" id="symptom8" name="symptom8" value="symptom8">
+            <label for="symptom1">Shortness of breath</label><br>
+            
+            <input type="checkbox" id="symptom9" name="symptom9" value="symptom9">
+            <label for="symptom1">Inability to lie down because of difficulty breathing</label><br>
+            
+            <input type="checkbox" id="symptom10" name="symptom10" value="symptom10">
+            <label for="symptom1">Chronic health conditions that are having difficulty managing because of your current respiratory illness</label><br>
+
+            <p>3. In the past 14 days have you had close contact with someone who is confirmed as having COVID-19?</p>
+
+            <input type="radio" id="covid-contact-true" name="covid-contact" value="true">
+            <label for="covid-contact-true">Yes</label><br>
+            
+            <input type="radio" id="covid-contact-false" name="covid-contact" value="false">
+            <label for="covid-contact-false">No</label>
+
+            <p>4. Are you experiencing any of the following symptoms today? <br> &nbsp;&nbsp;&nbsp;&nbsp;Choose all that apply.</p>
+
+            <input type="checkbox" id="symptom11" name="symptom11" value="symptom11">
+            <label for="symptom1">Fever or feeling feverish</label><br>
+
+            <input type="checkbox" id="symptom12" name="symptom12" value="symptom12">
+            <label for="symptom1">Shortness of breath (not severe)</label><br>
+
+            <input type="checkbox" id="symptom13" name="symptom13" value="symptom13">
+            <label for="symptom1">Cough</label><br>
+
+            <input type="checkbox" id="symptom14" name="symptom14" value="symptom14">
+            <label for="symptom1">Sore throat</label><br>
+
+            <input type="checkbox" id="symptom15" name="symptom15" value="symptom15">
+            <label for="symptom1">Chills</label><br>
+
+            <input type="checkbox" id="symptom16" name="symptom16" value="symptom16">
+            <label for="symptom1">Repeated shaking with chills</label><br>
+
+            <input type="checkbox" id="symptom17" name="symptom17" value="symptom17">
+            <label for="symptom1">Muscle pains</label><br>
+
+            <input type="checkbox" id="symptom18" name="symptom18" value="symptom18">
+            <label for="symptom1">Loss of taste or smell</label><br>
+
+            <input type="checkbox" id="symptom19" name="symptom19" value="symptom19">
+            <label for="symptom1">Headache</label><br>     
+            
+            <p>5. Do you have any of the following severe underlying chronic medical conditions or other conditions that might put you at risk? <br> &nbsp;&nbsp;&nbsp;&nbsp;Choose all that apply.</p>
+            
+            <input type="checkbox" id="condition1" name="condition1" value="condition1">
+            <label for="symptom1">Chronic lung disease or moderate to severe asthma</label><br>
+
+            <input type="checkbox" id="condition2" name="condition2" value="condition2">
+            <label for="symptom1">Congestive heart failure</label><br>
+
+            <input type="checkbox" id="condition3" name="condition3" value="condition3">
+            <label for="symptom1">Diabetes</label><br>
+
+            <input type="checkbox" id="condition4" name="condition4" value="condition4">
+            <label for="symptom1">Weakened immune system/Immune suppressant drugs</label><br>
+
+            <input type="checkbox" id="condition5" name="condition5" value="condition5">
+            <label for="symptom1">Dialysis</label><br>
+
+            <input type="checkbox" id="condition6" name="condition6" value="condition6">
+            <label for="symptom1">Pregnancy</label><br>
+
+            <input type="checkbox" id="condition7" name="condition7" value="condition7">
+            <label for="symptom1">Obesity</label><br>
+
+            <input type="checkbox" id="condition8" name="condition8" value="condition8">
+            <label for="symptom1">Other health complications</label><br>
+
+
+</div>
+
+<footer>
+    <button class="submit" style="float: right; margin-bottom: 40px;margin-right: 40px;">Submit Responses</button>
+</footer>
 
 </body>
 </html>
