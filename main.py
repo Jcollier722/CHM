@@ -9,6 +9,7 @@ from collections import defaultdict
 import pandas as pd
 import map_data as md
 import admin as ad
+import covid_analysis as ca
 import db
 import branca.colormap as cm
 import configparser
@@ -86,6 +87,17 @@ def login():
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     sym_list= ad.get_sym_list(db.get_connection())
+    users_syms = []
+    #check if user is done with self-assessment
+    if request.method == 'POST':
+        if request.form["myforms"]=="submit answers":
+            #get everything users checked, ignore form's name
+            for index in request.form:
+                if(index!="myforms"):
+                    users_syms.append(index)
+                    
+            print(ca.process_answers(db.get_connection(),users_syms))
+            
     return render_template('test.html',sym_list=sym_list)
 
 @app.route('/adminHome', methods=['GET', 'POST'])
@@ -141,10 +153,8 @@ def admin_home():
                                cluster_list=cluster_list,
                                sym_list=sym_list,
                                user=session['username'])
-
     else:
         return 'Sorry, you must login to view this page'
 
-    
 if __name__ == '__main__':
     app.run()
