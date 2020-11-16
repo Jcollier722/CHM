@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>{% block title %}{% endblock %}</title></title>
+</head>
+
+
+<body style="background-color:#3498DB;">
+   <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"></a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('index') }}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('test') }}">Self Assessment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('heatmap') }}">View Heatmap</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('login') }}">Admin Login</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+  <div id="content">{% block content %}{% endblock %}</div>
+<body>
+	<div class= "About-project">
+		<div class="Title">
+		<h1>Covid-19 Assessment Questionnairre</h1>
+		<p class="info">
+		Welcome to the COVID-19 Assessment Test. This test will give you an idea whether you have the COVID-19 virus or how at risk you are of obtaining the virus.
+
+		You will be presented with a set of questions to determin how at risk you are. These responses are anonumous and will not be recorded. You will be given a score at of the test and recommendations on what to do next. This test is not an actual diagnosis and will only give you a reccomendation based on the responses to the questions given. If your score is high, you will be asked to provide any locations on the Stockton University Galloway Campus you have visited.
+
+                Click on the Take Test button bellow to start your assesment.
+		</p>
+	</div>
+    </div>
+</body>
+		
+</html>
