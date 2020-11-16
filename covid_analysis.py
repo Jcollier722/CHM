@@ -51,7 +51,7 @@ def process_answers(connection,user_answers):
 
         match_percent=(matches/len(cluster_syms))
 
-        if((match_percent>0) and (match_percent<= low_risk_threshold)):
+        if((match_percent>0.05) and (match_percent<= low_risk_threshold)):
             low_risk=True
 
         if((match_percent>low_risk_threshold) and (match_percent<= high_risk_threshold)):
@@ -61,11 +61,11 @@ def process_answers(connection,user_answers):
             high_risk=True
         
     if(high_risk):
-        return "high_risk"
+        return "high"
     if(medium_risk):
-        return "medium_risk"
+        return "medium"
     if(low_risk):
-        return "low_risk"
+        return "low"
 
             
 def get_sym_for_cluster(cluster,s_dict):

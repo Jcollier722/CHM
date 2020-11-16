@@ -96,7 +96,12 @@ def test():
                 if(index!="myforms"):
                     users_syms.append(index)
                     
-            print(ca.process_answers(db.get_connection(),users_syms))
+            score=(ca.process_answers(db.get_connection(),users_syms))
+
+            if(score == "low"):
+                session['score']='Low Risk'
+                return redirect(url_for('low'))
+                
             
     return render_template('test.html',sym_list=sym_list)
 
@@ -155,6 +160,16 @@ def admin_home():
                                user=session['username'])
     else:
         return 'Sorry, you must login to view this page'
+
+@app.route('/lowscore', methods=['GET', 'POST'])
+def low():
+    score = session['score']
+    
+    if request.method == 'POST':
+        if request.form["myforms"]=="view heat":
+            return redirect(url_for('heatmap'))
+        
+    return render_template('lowscore.html',score=score)
 
 if __name__ == '__main__':
     app.run()
