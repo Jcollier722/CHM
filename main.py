@@ -6,6 +6,7 @@ import folium
 from folium.plugins import HeatMap
 from folium.plugins import MarkerCluster
 from collections import defaultdict
+from flask import Markup
 from multiprocessing.dummy import Pool as ThreadPool
 import pandas as pd
 import map_data as md
@@ -61,9 +62,10 @@ def heatmap():
     #allow user to show or hide layers (heat and markers)
     folium.LayerControl().add_to(stockton_map)
 
-    stockton_map.save('templates/hmap.html')
-    
-    return render_template('heatmap.html')
+    #stockton_map.save('templates/hmap.html')
+    #print("doing this")
+    content=Markup(stockton_map._repr_html_())
+    return render_template('heatmap.html',content = content)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -192,8 +194,10 @@ def high(threads=16):
             pool = ThreadPool(threads)
             results = pool.map(md.add_case,locations_visited)
             
+            return redirect(url_for('heatmap'))
+            
     
     return render_template('location-trace.html',score=score,location_list=location_list)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(extra_files='templates\location-trace.html')
