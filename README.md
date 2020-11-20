@@ -11,13 +11,17 @@ In addition to providing a heatmap, the tool will also provide a platform for us
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+* Folium
+* Pandas
+* Flask
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+* Clone this repo
+* Install dependencies   
+```
+pip install -r requirements.txt
+```
 
 ### Executing program
 
