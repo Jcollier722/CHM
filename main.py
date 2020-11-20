@@ -101,6 +101,11 @@ def test():
             if(score == "low"):
                 session['score']='Low Risk'
                 return redirect(url_for('low'))
+
+            if(score == "medium" or score == "high"):
+                session['score']= (score.capitalize()+" Risk")
+                return redirect(url_for('high'))
+                
                 
             
     return render_template('test.html',sym_list=sym_list)
@@ -170,6 +175,13 @@ def low():
             return redirect(url_for('heatmap'))
         
     return render_template('lowscore.html',score=score)
+
+@app.route('/location-trace', methods=['GET', 'POST'])
+def high():
+    score = session['score']    
+    location_list=ad.get_location_list(db.get_connection())
+    
+    return render_template('location-trace.html',score=score,location_list=location_list)
 
 if __name__ == '__main__':
     app.run()

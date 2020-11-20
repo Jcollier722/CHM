@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Contact Tracing{% endblock %}
+{% block head %}
+  {{ super() }}
+ {% endblock %}
+
+{% block content %}
+<body>   
+<div class="result" style="margin-left:300px; margin-right:300px; margin-top:150px; text-align:center; padding:20px; background-color:white; border-style:solid; border-color:black; border-width:3px; font-family: Arial">
+    <h1></h1>
+        <p>This is your result. Your score is higher than the threshold, which indeciates that you have high risk of contracting COVID-19. You should check out the guideline to know what you should do next. </p>
+        <p>To improve the accuracy of Stockton University heat map, please provide the location you have visited</p>
+    
+    <h1>Location Tracing:</h1>
+    
+    <div style="text-align: left">
+    <form action="">
+        <input type="checkbox" name="location1" value="School of health sciences">
+            <label for="location1"> Schools Of Health Sciences</label><br>
+    </form>   
+    </div>
+</div>
+</body>
+{% endblock %}

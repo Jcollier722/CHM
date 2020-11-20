@@ -51,7 +51,7 @@ def process_answers(connection,user_answers):
 
         match_percent=(matches/len(cluster_syms))
 
-        if((match_percent>0.05) and (match_percent<= low_risk_threshold)):
+        if((match_percent>0.0) and (match_percent<= low_risk_threshold)):
             low_risk=True
 
         if((match_percent>low_risk_threshold) and (match_percent<= high_risk_threshold)):
