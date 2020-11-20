@@ -6,6 +6,7 @@ import folium
 from folium.plugins import HeatMap
 from folium.plugins import MarkerCluster
 from collections import defaultdict
+from multiprocessing.dummy import Pool as ThreadPool
 import pandas as pd
 import map_data as md
 import admin as ad
@@ -177,7 +178,7 @@ def low():
     return render_template('lowscore.html',score=score)
 
 @app.route('/location-trace', methods=['GET', 'POST'])
-def high():
+def high(threads=16):
     score = session['score']    
     location_list=ad.get_location_list(db.get_connection())
 
@@ -187,8 +188,10 @@ def high():
             for index in request.form:
                 if(index != "myforms"):
                     (locations_visited.append(index))
-            for location in locations_visited:
-                print(md.add_case(db.get_connection(),location))
+            
+            pool = ThreadPool(threads)
+            results = pool.map(md.add_case,locations_visited)
+            
     
     return render_template('location-trace.html',score=score,location_list=location_list)
 

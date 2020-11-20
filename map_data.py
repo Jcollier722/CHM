@@ -1,6 +1,7 @@
 import mysql.connector
 import configparser
 import pandas as pd
+import db as db
 from mysql.connector import Error
 
 #return a list of tuples -> tuple[0] name, tuple[1] lat, tuple[2] lon
@@ -45,7 +46,8 @@ def get_infected_locations(connection):
 
     return results
 
-def add_case(connection,location):
+def add_case(location):
+    connection = db.get_connection()
     #get current case count, increment by one
     cases=get_case_count(connection,location)
     cases = cases + 1
