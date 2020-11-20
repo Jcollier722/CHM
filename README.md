@@ -38,7 +38,7 @@ command to run if program contains helper info
 
 Contributors names
 
-Jake Collier
-Ryan Carney 
-John Hughes
+Jake Collier \\
+Ryan Carney \\
+John Hughes \\
 Ngoc Ta  
