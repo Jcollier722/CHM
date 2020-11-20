@@ -23,25 +23,8 @@ In addition to providing a heatmap, the tool will also provide a platform for us
 pip install -r requirements.txt
 ```
 
-### Executing program
-
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
-
-## Help
-
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
 
 ## Authors
-
-Contributors names
-
 Jake Collier  
 Ryan Carney  
 John Hughes  
