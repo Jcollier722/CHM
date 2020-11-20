@@ -180,6 +180,15 @@ def low():
 def high():
     score = session['score']    
     location_list=ad.get_location_list(db.get_connection())
+
+    locations_visited=[]
+    if request.method == 'POST':
+        if request.form["myforms"]=="submit locs":
+            for index in request.form:
+                if(index != "myforms"):
+                    (locations_visited.append(index))
+            for location in locations_visited:
+                print(md.add_case(db.get_connection(),location))
     
     return render_template('location-trace.html',score=score,location_list=location_list)
 

@@ -45,6 +45,29 @@ def get_infected_locations(connection):
 
     return results
 
+def add_case(connection,location):
+    #get current case count, increment by one
+    cases=get_case_count(connection,location)
+    cases = cases + 1
+    cursor=connection.cursor(dictionary=True)
+    try:
+        cursor.execute('UPDATE campus_locations SET case_count=%s WHERE name =%s',(cases,location,))
+        connection.commit()
+        return("Added case to "+str(location))
+    except Exception as e:
+        return (e)
+
+def get_case_count(connection,location):
+    cursor=connection.cursor(dictionary=True)
+    try:
+        cursor.execute('SELECT case_count FROM campus_locations WHERE name = %s',(location,))
+        count = cursor.fetchone()
+        connection.commit()
+        return(int(count['case_count']))
+    except Exception as e:
+        return (e)
+    
+
 def get_login(connection,username,password):
     cursor=connection.cursor(dictionary=True)
     cursor.execute("SELECT * FROM login WHERE username= %s AND password = %s", (username, password,))
