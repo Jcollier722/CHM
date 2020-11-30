@@ -1,10 +1,77 @@
-{% extends "base.html" %}
-{% block title %}Home{% endblock %}
-{% block head %}
-  {{ super() }}
- {% endblock %}
+{% extends "map_base.html" %}
+{% block title %} HeatMap {% endblock %}
+{% block head %} {{ super() }} {% endblock %}
 
-{% block content %}
-  <h1>This is the home page.</h1>
-    <p>User will have a button the brings them to the questionnaire below, or they can use the navigation bar above.</p>
- {% endblock %}
+{%block content %}
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('index') }}">
+          <img src="http://jakecollier.tech/images/logo.png" style = "width: 50%" alt="">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="true" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('index') }}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('test') }}">Self Assessment</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('heatmap') }}">View Heatmap</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('login') }}">Admin Login</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+{% block body %}
+<head>
+	<title>Story by HTML5 UP</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="static/main.css" />
+		
+</head>
+
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper" class="divided">
+
+				<!-- One -->
+					<section class="banner style1 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right">
+						<div class="content">
+							<h1>Welcome to the COVID-19 Self-Assessment Test</h1>
+							<p class="major">This test will propose questions to determine your 
+			                symptoms and how at risk you are in obtaining COVID-19.<br> These responses are anonymous. You will be given a score at the end of the test and a recommendation on<br>
+			                what to do next. This test is not an actual diagnosis and will only give you a recommendation based on the <br>
+			                responses given. If your score is high, you will be asked to provide any locations on the Stockton University<br> 
+			                Galloway Campus you have visited.<br>
+			                <br>
+			                Click on the 'Test' button below to get started.</p>
+							<ul class="actions stacked">
+								<li><a href="#first" class="button big wide smooth-scroll-middle">Get Started</a></li>
+							</ul>
+						</div>
+						<div>
+						<img src="static/img/clean.svg" style = "height: 85%; width: 25%; position: absolute; right: 0%" alt="" /></div>
+					</section>
+		<!-- Scripts -->
+			<script src="static/js/jquery.min.js"></script>
+			<script src="static/js/jquery.scrollex.min.js"></script>
+			<script src="static/js/jquery.scrolly.min.js"></script>
+			<script src="static/js/browser.min.js"></script>
+			<script src="static/js/breakpoints.min.js"></script>
+			<script src="static/js/util.js"></script>
+			<script src="static/js/main.js"></script>
+
+	</body>    
+{% endblock %}
