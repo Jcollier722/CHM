@@ -28,8 +28,4 @@ pip install -r requirements.txt
 Jake Collier  
 Ryan Carney  
 John Hughes  
-<<<<<<< HEAD
-Ngoc Ta  
-=======
-Ngoc Ta  
->>>>>>> 8cd86b49faa6301bc0f35b37276bbcf6f154364b
+Ngoc Ta
