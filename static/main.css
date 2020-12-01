@@ -163,18 +163,6 @@ input, select, textarea {
 		line-height: 1.65;
 	}
 
-	a {
-		-moz-transition: color 0.2s ease-in-out;
-		-webkit-transition: color 0.2s ease-in-out;
-		-ms-transition: color 0.2s ease-in-out;
-		transition: color 0.2s ease-in-out;
-		text-decoration: underline;
-	}
-
-		a:hover {
-			text-decoration: none;
-		}
-
 	strong, b {
 		font-weight: 400;
 	}
@@ -188,7 +176,7 @@ input, select, textarea {
 	}
 
 		p.major {
-			font-size: 1.25rem;
+			font-size: 1.00rem;
 		}
 
 	h1, h2, h3, h4, h5, h6 {

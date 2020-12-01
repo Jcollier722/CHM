@@ -25,7 +25,7 @@ app.secret_key='stockton'
 def heatmap():
     #Stockon University Lat and Lon
     start_coords = (39.4920,-74.5305)
-    stockton_map = folium.Map(location=start_coords, zoom_start=16,width='100%',height='80%')
+    stockton_map = folium.Map(location=start_coords, zoom_start=16,width='100%',height='75%')
     
     #create a colormap for legend
     colormap = cm.LinearColormap(colors=['lightblue','green','yellow','red'], index=[0,25,50,100],vmin=0,vmax=100)
