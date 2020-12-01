@@ -2228,6 +2228,8 @@ input, select, textarea {
 
 	form {
 		margin: 0 0 2rem 0;
+		border-style: solid;
+	
 	}
 
 		form > :last-child {
@@ -2325,7 +2327,6 @@ input, select, textarea {
 		display: block;
 		outline: 0;
 		padding: 0 0.825rem;
-		text-decoration: none;
 		width: 100%;
 	}
 

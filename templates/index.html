@@ -1,5 +1,5 @@
 {% extends "map_base.html" %}
-{% block title %} HeatMap {% endblock %}
+{% block title %} Home {% endblock %}
 {% block head %} {{ super() }} {% endblock %}
 
 {%block content %}
@@ -35,9 +35,9 @@
 
 {% block body %}
 <head>
-	<title>Story by HTML5 UP</title>
+	
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
 	<link rel="stylesheet" href="static/main.css" />
 		
 </head>
@@ -69,7 +69,7 @@
 				
 
 
-						<!-- Two -->
+					<!-- Two -->
 					<section class="spotlight style1 orient-right content-align-left image-position-center onscroll-image-fade-in" id="first">
 						<div class="content">
 							<h2>How it all works.</h2>
@@ -77,7 +77,7 @@
 							You will be presented with a list of symptoms. Research shows certain clusters of symptoms are strongly related to Covid-19. Select any symptoms you may be having and our tool will calculate how closely your symptoms match with the recognized clusters and provide you with a risk score. You may be prompted to provide your frequently visited campus locations, this data will always remain private and is used to improve the tool. After the survey you will be shown an interactive map of campus that displays the "hot-spot" locations around the university.  
 							</p>
 							<ul class="actions stacked">
-								<li><a href="#" class="button">Learn More</a></li>
+								<li><a href="{{ url_for('test') }}" class="button">Take the test.</a></li>
 							</ul>
 						</div>
 					
