@@ -66,6 +66,7 @@ def process_answers(connection,user_answers):
         return "medium"
     if(low_risk):
         return "low"
+    
 
             
 def get_sym_for_cluster(cluster,s_dict):

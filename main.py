@@ -90,6 +90,8 @@ def login():
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     sym_list= ad.get_sym_list(db.get_connection())
+    life_list = ad.get_life_list(db.get_connection())
+    pre_list = ad.get_pre_list(db.get_connection())
     users_syms = []
     #check if user is done with self-assessment
     if request.method == 'POST':
@@ -110,8 +112,8 @@ def test():
                 return redirect(url_for('high'))
                 
                 
-            
-    return render_template('test.html',sym_list=sym_list)
+    
+    return render_template('test.html',sym_list=sym_list,life_list=life_list,pre_list=pre_list)
 
 @app.route('/adminHome', methods=['GET', 'POST'])
 def admin_home():
