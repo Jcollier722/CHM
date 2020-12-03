@@ -37,11 +37,42 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://rawcdn.githack.com/karolsw3/gradientify/7f5a74cd8380a843477b7abfa9baca2fd127013a/dist/gradientify.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
     <style>
       html, body {
       min-height: 100%;
+      .css-selector {
+    background: linear-gradient(234deg, #3498db, #258cd2, #0c5d94, #0097fd, #0099ff, #00365a);
+    background-size: 1200% 1200%;
+    -webkit-animation: AnimationName 25s ease infinite;
+    -moz-animation: AnimationName 25s ease infinite;
+    -o-animation: AnimationName 25s ease infinite;
+    animation: AnimationName 25s ease infinite;
+}
+@-webkit-keyframes AnimationName {
+    0%{background-position:49% 0%}
+    50%{background-position:52% 100%}
+    100%{background-position:49% 0%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:49% 0%}
+    50%{background-position:52% 100%}
+    100%{background-position:49% 0%}
+}
+@-o-keyframes AnimationName {
+    0%{background-position:49% 0%}
+    50%{background-position:52% 100%}
+    100%{background-position:49% 0%}
+}
+@keyframes AnimationName {
+    0%{background-position:49% 0%}
+    50%{background-position:52% 100%}
+    100%{background-position:49% 0%}
+}
       }
       body, div, form, input, p { 
       padding: 0;
@@ -51,6 +82,7 @@
       font-size: 16px;
       color: #666;
       line-height: 28px;
+
       }
       h1{
       font-weight: 400 bold;

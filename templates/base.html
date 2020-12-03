@@ -13,7 +13,34 @@
     <title>{% block title %}{% endblock %}</title></title>
 </head>
 
-<body style="background-color:#3498DB;">
+<body style=".css-selector {
+    background: linear-gradient(234deg, #3498db, #258cd2, #0c5d94, #0097fd, #0099ff, #00365a);
+    background-size: 1200% 1200%;
+    -webkit-animation: AnimationName 25s ease infinite;
+    -moz-animation: AnimationName 25s ease infinite;
+    -o-animation: AnimationName 25s ease infinite;
+    animation: AnimationName 25s ease infinite;
+}
+@-webkit-keyframes AnimationName {
+    0%{background-position:49% 0%}
+    50%{background-position:52% 100%}
+    100%{background-position:49% 0%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:49% 0%}
+    50%{background-position:52% 100%}
+    100%{background-position:49% 0%}
+}
+@-o-keyframes AnimationName {
+    0%{background-position:49% 0%}
+    50%{background-position:52% 100%}
+    100%{background-position:49% 0%}
+}
+@keyframes AnimationName {
+    0%{background-position:49% 0%}
+    50%{background-position:52% 100%}
+    100%{background-position:49% 0%}
+}">
 
 <div id="content">{% block content %}{% endblock %}</div>
 
