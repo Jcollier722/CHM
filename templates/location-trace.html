@@ -130,7 +130,8 @@
   </head>
   <body>
     <div class="testbox">
-      <form action="/test" method="POST">
+      <form action="/location-trace" method = "POST">
+        <input type="hidden" name="myforms" value="submit locs">
       <input type="hidden" name="myforms" value="submit answers">
         <h1>You have scored: {{score}}/20.</h1>
         <h2>This places you in the {{factor}} category.</h2>
@@ -165,7 +166,7 @@
 
       <div style="position: absolute;left: 0%; bottom: 2%; right: 0%;">
         <div class="btn-block">
-          <button type="submit" href="/">Submit</button>
+          <button type="submit">Submit</button>
         </div>
       </div>
       </form>

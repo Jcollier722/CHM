@@ -204,7 +204,7 @@ def high(threads=16):
         if request.form["myforms"]=="submit locs":
             for index in request.form:
                 if(index != "myforms"):
-                    (locations_visited.append(index))
+                    (locations_visited.append((index,session['factor'])))
             
             pool = ThreadPool(threads)
             results = pool.map(md.add_case,locations_visited)

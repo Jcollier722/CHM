@@ -49,13 +49,18 @@ def get_infected_locations(connection):
 def add_case(location):
     connection = db.get_connection()
     #get current case count, increment by one
-    cases=get_case_count(connection,location)
-    cases = cases + 1
+    cases=get_case_count(connection,location[0])
+
+    if(location[1]=="high risk"):
+        cases = cases + 2
+    if(location[1]=="medium risk"):
+        cases = cases + 1
+
     cursor=connection.cursor(dictionary=True)
     try:
-        cursor.execute('UPDATE campus_locations SET case_count=%s WHERE name =%s',(cases,location,))
+        cursor.execute('UPDATE campus_locations SET case_count=%s WHERE name =%s',(cases,location[0],))
         connection.commit()
-        return("Added case to "+str(location))
+        return("Added case to "+str(location[0]))
     except Exception as e:
         return (e)
 
