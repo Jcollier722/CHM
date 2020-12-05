@@ -1,0 +1,135 @@
+{% extends "map_base.html" %}
+{% block title %}Results{% endblock %}
+{% block head %} {{ super() }} {% endblock %}
+
+{%block content %}
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('index') }}">
+          <img src="http://jakecollier.tech/images/logo.png" style = "width: 50%" alt="">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="true" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('index') }}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('test') }}">Self Assessment</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('heatmap') }}">View Heatmap</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('login') }}">Admin</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+{%block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>COVID-19 Self Assessment Results</title>
+</head>
+<style>
+      html, body {
+      min-height: 100%;
+      }
+      body, div, form, input, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 16px;
+      color: #666;
+      line-height: 28px;
+      }
+      h1{
+      font-weight: 500 bold;
+      text-align: center;
+      }
+      h4 {
+      margin: 25px 0 5px;
+      color: #095484;
+      }
+      h2 {
+      font-weight: 300 bold;
+      text-align: center;
+      }
+      h3 {
+      font-weight: 200 bold;
+      text-align: center;
+      }
+      h5{
+      font-weight: 20;
+      text-align: left;
+      }
+      .testbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: inherit;
+      padding: 3px;
+      }
+
+      input {
+      width: auto;
+      margin-right: 15px;
+      vertical-align: middle;
+      }
+      .question-answer label {
+      display: block;
+      text-align: left;
+      }
+      .btn-block {
+      margin-top: 20px;
+      text-align: center;
+      }
+      button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      -webkit-border-radius: 5px; 
+      -moz-border-radius: 5px;  
+      background-color: #095484;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      button:hover {
+      background-color: #0666a3;
+      }
+    </style>
+
+<body>
+
+<div class="result" style="margin-left:300px; margin-right:300px; margin-top:100px; text-align:center; padding:75px; background-color:white; border-style:solid; border-color:black; border-width:3px;">
+    <h1>You have scored: {{score}}/20. <br></h1>
+    <h2>This places you in the {{factor}} category.<br><br></h2>
+    <h3>We recommend self-monitoring, continued social-distancing, and mask wearing.<br>
+        Please continue to retake this assessment periodically and follow up with a health care professional if new or worsening symptoms occur. <br><br>
+    </h3>
+
+    <h3>
+    Click below to be taken to the heat-map
+    </h3>
+
+    <form action="/lowscore"  method="POST">
+      <input type="hidden" name="myforms" value="view heat">
+      <div>
+          <button type="submit">View Heat-Map</button>
+       </div>
+    </form>
+</div>
+
+</body>
+</html>
+ {% endblock %}

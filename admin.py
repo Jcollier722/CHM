@@ -33,6 +33,24 @@ def get_location_list(connection):
     except Exception as e:
         return (e)
 
+#get clusters
+def get_cluster_list(connection):
+    cursor=connection.cursor(dictionary=True)
+    try:
+        cursor.execute('SELECT DISTINCT cluster_id FROM symptom')
+        return (cursor.fetchall())
+    except Exception as e:
+        return (e)
+
+#get clusters
+def get_sym_list(connection):
+    cursor=connection.cursor(dictionary=True)
+    try:
+        cursor.execute('SELECT DISTINCT name FROM symptom')
+        return (cursor.fetchall())
+    except Exception as e:
+        return (e)
+    
 #add a new admin
 def add_user(connection,username,password):
     cursor=connection.cursor(dictionary=True)
@@ -43,5 +61,40 @@ def add_user(connection,username,password):
     except Exception as e:
         return (traceback.print_exc())
 
+def add_sym(connection,sym,cluster):
+    cursor=connection.cursor(dictionary=True)
+    try:
+        cursor.execute('INSERT INTO `symptom`(`name`, `cluster_id`) VALUES (%s,%s)',(sym,cluster,))
+        connection.commit()
+        return("Success add sym")
+    except Exception as e:
+        return (traceback.print_exc())
+    
+def rem_sym(connection,sym):
+    cursor=connection.cursor(dictionary=True)
+    try:
+        cursor.execute('DELETE FROM `symptom` WHERE name = %s',(sym,))
+        connection.commit()
+        return("Success rem sym")
+    except Exception as e:
+        return (traceback.print_exc())
+    
+#get clusters
+def get_life_list(connection):
+    cursor=connection.cursor(dictionary=True)
+    try:
+        cursor.execute('SELECT DISTINCT name FROM life_threat')
+        return (cursor.fetchall())
+    except Exception as e:
+        return (e)
+
+#get clusters
+def get_pre_list(connection):
+    cursor=connection.cursor(dictionary=True)
+    try:
+        cursor.execute('SELECT DISTINCT name FROM pre_exs')
+        return (cursor.fetchall())
+    except Exception as e:
+        return (e)
 
         

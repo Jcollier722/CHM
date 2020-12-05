@@ -32,3 +32,4 @@ def get_connection():
     connection=create_connection(host,username,password,database)
 
     return(connection)
+

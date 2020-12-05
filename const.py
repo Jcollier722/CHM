@@ -1,0 +1,11 @@
+#https://www.cdc.gov/coronavirus/2019-ncov/covid-data/investigations-discovery/hospitalization-death-by-age.html
+age_risk_dict={
+    "5-17":0.11,
+    "18-29":1.00,
+    "30-39":2.00,
+    "40-49":3.00,
+    "50-64":4.00,
+    "65-74":5.00,
+    "75-84":8.00,
+    "85+":13.00
+    }
