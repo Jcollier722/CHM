@@ -1,10 +1,104 @@
-{% extends "base.html" %}
+{% extends "map_base.html" %}
 {% block title %}Home{% endblock %}
-{% block head %}
-  {{ super() }}
- {% endblock %}
+{% block head %} {{ super() }} {% endblock %}
 
-{% block content %}
-  <h1>This is the home page.</h1>
-    <p>User will have a button the brings them to the questionnaire below, or they can use the navigation bar above.</p>
- {% endblock %}
+{%block content %}
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('index') }}">
+          <img src="http://jakecollier.tech/images/logo.png" style = "width: 50%" alt="">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="true" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('index') }}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('test') }}">Self Assessment</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('heatmap') }}">View Heatmap</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('login') }}">Admin</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+{% block body %}
+<head>
+	
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<link rel="stylesheet" href="static/main.css" />
+		
+</head>
+
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper" class="divided">
+
+				<div>
+				<!-- One -->
+					<section class="banner style1 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right">
+						<div class="content">
+
+							
+							<h1>Our Mission.</h1>
+							<p class="major">Stockton University has been greatly affected by the Covid-19 crisis. Remote learning has presented a new set of challenges for the entire student body, staff and faculty alike. This tool aims to perform a platform for the Stockton community to quickly and accurately assess their symptoms and provide insight to make smart travel decisions.  
+			                <br>
+			                </p>
+							<ul class="actions stacked">
+								<li><a href="#first" class="button big wide smooth-scroll-middle">How we do it.</a></li>
+							</ul>
+							
+						</div>
+						<div>
+
+						<img src="static/img/clean.svg" style = "height: 85%; width: 25%; position: absolute; right: 0%" alt="" />
+						<img src="static/img/clean.svg" style = "height: 85%; width: 25%; position: absolute; left: 0%;transform: scaleX(-1);" alt="" />				
+					</section>
+			
+				</div>
+				
+
+
+					<!-- Two -->
+					<section class="banner style1 orient-right content-align-left image-position-center onscroll-image-fade-in" id="first">
+						<div class="content">
+							<h2>How it all works.</h2>
+							<p>
+							You will be presented with a list of symptoms. Research shows certain clusters of symptoms are strongly related to Covid-19. Select any symptoms you may be having and our tool will calculate how closely your symptoms match with the recognized clusters and provide you with a risk score. You may be prompted to provide your frequently visited campus locations, this data will always remain private and is used to improve the tool. After the survey you will be shown an interactive map of campus that displays the "hot-spot" locations around the university.  
+							</p>
+							<ul class="actions stacked">
+								<li><a href="{{ url_for('test') }}" class="button">Take the test.</a></li>
+							</ul>
+						</div>
+					
+						<img src="static/img/mask.png" style="height: 75%; width:75%;" alt="" />
+					</section>
+			</div>
+
+
+
+
+
+		<!-- Scripts -->
+			<script src="static/js/jquery.min.js"></script>
+			<script src="static/js/jquery.scrollex.min.js"></script>
+			<script src="static/js/jquery.scrolly.min.js"></script>
+			<script src="static/js/browser.min.js"></script>
+			<script src="static/js/breakpoints.min.js"></script>
+			<script src="static/js/util.js"></script>
+			<script src="static/js/main.js"></script>
+
+	</body>    
+{% endblock %}

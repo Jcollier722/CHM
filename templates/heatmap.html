@@ -3,29 +3,36 @@
 {% block head %} {{ super() }} {% endblock %}
 
 {%block content %}
-<div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#"></a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ url_for('index') }}">About <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('test') }}">Self Assessment</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('heatmap') }}">View Heatmap</a>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('login') }}">Admin Login</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('index') }}">
+          <img src="http://jakecollier.tech/images/logo.png" style = "width: 50%" alt="">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="true" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('index') }}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('test') }}">Self Assessment</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('heatmap') }}">View Heatmap</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('login') }}">Admin Login</a>
+        </li>
+      </ul>
     </div>
+  </div>
+</nav>
 {% endblock %}
 
 {% block body %}
-    {% include "hmap.html" %}
+    {{content}}
 {% endblock %}

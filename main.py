@@ -6,7 +6,10 @@ import folium
 from folium.plugins import HeatMap
 from folium.plugins import MarkerCluster
 from collections import defaultdict
+from flask import Markup
+from multiprocessing.dummy import Pool as ThreadPool
 import pandas as pd
+import numpy as np
 import map_data as md
 import admin as ad
 import covid_analysis as ca
@@ -23,7 +26,7 @@ app.secret_key='stockton'
 def heatmap():
     #Stockon University Lat and Lon
     start_coords = (39.4920,-74.5305)
-    stockton_map = folium.Map(location=start_coords, zoom_start=16,width='100%',height='90%')
+    stockton_map = folium.Map(location=start_coords, zoom_start=16,width='100%',height='75%')
     
     #create a colormap for legend
     colormap = cm.LinearColormap(colors=['lightblue','green','yellow','red'], index=[0,25,50,100],vmin=0,vmax=100)
@@ -60,9 +63,10 @@ def heatmap():
     #allow user to show or hide layers (heat and markers)
     folium.LayerControl().add_to(stockton_map)
 
-    stockton_map.save('templates/hmap.html')
-    
-    return render_template('heatmap.html')
+    #stockton_map.save('templates/hmap.html')
+    #print("doing this")
+    content=Markup(stockton_map._repr_html_())
+    return render_template('heatmap.html',content = content)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -87,6 +91,8 @@ def login():
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     sym_list= ad.get_sym_list(db.get_connection())
+    life_list = ad.get_life_list(db.get_connection())
+    pre_list = ad.get_pre_list(db.get_connection())
     users_syms = []
     #check if user is done with self-assessment
     if request.method == 'POST':
@@ -97,13 +103,19 @@ def test():
                     users_syms.append(index)
                     
             score=(ca.process_answers(db.get_connection(),users_syms))
-
-            if(score == "low"):
-                session['score']='Low Risk'
-                return redirect(url_for('low'))
-                
             
-    return render_template('test.html',sym_list=sym_list)
+            if(score[1] == "low"):
+                session['factor']='low risk'
+                session['score']=str(score[0])
+                return redirect(url_for('low'))
+            
+            if(score[1] == "high" or score[1] == "medium"):
+                session['factor']=(str(score[1])+ " risk")
+                session['score']=str(score[0])
+                
+                return redirect(url_for('rec'))
+ 
+    return render_template('test.html',sym_list=sym_list,life_list=life_list,pre_list=pre_list)
 
 @app.route('/adminHome', methods=['GET', 'POST'])
 def admin_home():
@@ -163,13 +175,53 @@ def admin_home():
 
 @app.route('/lowscore', methods=['GET', 'POST'])
 def low():
-    score = session['score']
+    factor = session['factor']
+    score =  session['score']
     
     if request.method == 'POST':
         if request.form["myforms"]=="view heat":
             return redirect(url_for('heatmap'))
         
-    return render_template('lowscore.html',score=score)
+    return render_template('lowscore.html',score=score,factor=factor)
+
+@app.route('/recommendations', methods=['GET', 'POST'])
+def rec():
+    factor = session['factor']
+    if request.method == 'POST':
+        if request.form["myforms"]=="do trace":
+            return redirect(url_for('high'))
+    
+    return render_template('recommendations.html',factor=factor)
+
+@app.route('/location-trace', methods=['GET', 'POST'])
+def high(threads=16):
+    score = session['score']    
+    factor = session['factor']
+    
+    location_list=ad.get_location_list(db.get_connection())
+
+    location_list_split = np.array_split(location_list, 3)
+    
+    location_list_1=location_list_split[0]
+    location_list_2=location_list_split[1]
+    location_list_3=location_list_split[2]
+    
+    locations_visited=[]
+    if request.method == 'POST':
+        if request.form["myforms"]=="submit locs":
+            for index in request.form:
+                if(index != "myforms"):
+                    (locations_visited.append((index,session['factor'])))
+            
+            pool = ThreadPool(threads)
+            results = pool.map(md.add_case,locations_visited)
+            
+            return redirect(url_for('heatmap'))
+            
+    
+    return render_template('location-trace.html',score=score,factor=factor,location_list_1=location_list_1,
+                           location_list_2=location_list_2,
+                           location_list_3=location_list_3)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(extra_files='templates\location-trace.html')

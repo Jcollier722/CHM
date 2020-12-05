@@ -1,5 +1,5 @@
 {% extends "map_base.html" %}
-{% block title %}Results{% endblock %}
+{% block title %}Recommendations{% endblock %}
 {% block head %} {{ super() }} {% endblock %}
 
 {%block content %}
@@ -37,7 +37,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>COVID-19 Self Assessment Results</title>
+    <title>COVID-19 Self Assessment Recommendations</title>
 </head>
 <style>
       html, body {
@@ -57,16 +57,16 @@
       text-align: center;
       }
       h4 {
-      margin: 25px 0 5px;
-      color: #095484;
+      font-weight: 100 bold;
+      text-align: center;
       }
       h2 {
       font-weight: 300 bold;
       text-align: center;
       }
       h3 {
-      font-weight: 200 bold;
-      text-align: center;
+      font-weight: 150 bold;
+      text-align: left;
       }
       h5{
       font-weight: 20;
@@ -111,21 +111,30 @@
 
 <body>
 
-<div class="result" style="margin-left:300px; margin-right:300px; margin-top:100px; text-align:center; padding:75px; background-color:white; border-style:solid; border-color:black; border-width:3px;">
-    <h1>You have scored: {{score}}/20. <br></h1>
-    <h2>This places you in the {{factor}} category.<br><br></h2>
-    <h3>We recommend self-monitoring, continued social-distancing, and mask wearing.<br>
-        Please continue to retake this assessment periodically and follow up with a health care professional if new or worsening symptoms occur. <br><br>
-    </h3>
+<div class="result" style="margin-left:300px; margin-right:300px; margin-top:50px; text-align:center; padding:75px; background-color:white; border-style:solid; border-color:black; border-width:3px;">
+    <h1>What now?<br></h1>
+    <h2>You are in the {{factor}} category. <br>Please consider the following recommendations based on your status.<br><br></h2>
 
     <h3>
-    Click below to be taken to the heat-map
+        <ul>
+          <li>Immediately isolate yourself from others.</li>
+          <li>Remain isolated for at least 14 days or until a test can be performed.</li>
+          <li>Do not visit public places or crowded areas.</li>
+          <li>Notify Stockton University if you test positive for Covid-19.</li>
+          <li>If contact with another person is unavoidable, wear a proper face covering.</li>
+          <li>Follow up with your healthcare professional, self assessments are not a subsititue for professional medical advice.</li>
+        </ul>
+    <br>
     </h3>
 
-    <form action="/lowscore"  method="POST">
-      <input type="hidden" name="myforms" value="view heat">
+
+    <h4>To improve the accuracy of this tool you will be asked on the next page to fill out a location tracing form. No personal information from this session will be stored.</h4>
+ 
+
+    <form action="/recommendations"  method="POST">
+      <input type="hidden" name="myforms" value="do trace">
       <div>
-          <button type="submit">View Heat-Map</button>
+          <button type="submit">Location Tracing</button>
        </div>
     </form>
 </div>

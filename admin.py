@@ -79,6 +79,22 @@ def rem_sym(connection,sym):
     except Exception as e:
         return (traceback.print_exc())
     
+#get clusters
+def get_life_list(connection):
+    cursor=connection.cursor(dictionary=True)
+    try:
+        cursor.execute('SELECT DISTINCT name FROM life_threat')
+        return (cursor.fetchall())
+    except Exception as e:
+        return (e)
 
+#get clusters
+def get_pre_list(connection):
+    cursor=connection.cursor(dictionary=True)
+    try:
+        cursor.execute('SELECT DISTINCT name FROM pre_exs')
+        return (cursor.fetchall())
+    except Exception as e:
+        return (e)
 
         

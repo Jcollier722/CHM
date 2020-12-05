@@ -1,6 +1,7 @@
 import mysql.connector
 import configparser
 import pandas as pd
+import db as db
 from mysql.connector import Error
 
 #return a list of tuples -> tuple[0] name, tuple[1] lat, tuple[2] lon
@@ -44,6 +45,35 @@ def get_infected_locations(connection):
         results.append((((row['lat'],row['lon'],row['case_count']))))
 
     return results
+
+def add_case(location):
+    connection = db.get_connection()
+    #get current case count, increment by one
+    cases=get_case_count(connection,location[0])
+
+    if(location[1]=="high risk"):
+        cases = cases + 2
+    if(location[1]=="medium risk"):
+        cases = cases + 1
+
+    cursor=connection.cursor(dictionary=True)
+    try:
+        cursor.execute('UPDATE campus_locations SET case_count=%s WHERE name =%s',(cases,location[0],))
+        connection.commit()
+        return("Added case to "+str(location[0]))
+    except Exception as e:
+        return (e)
+
+def get_case_count(connection,location):
+    cursor=connection.cursor(dictionary=True)
+    try:
+        cursor.execute('SELECT case_count FROM campus_locations WHERE name = %s',(location,))
+        count = cursor.fetchone()
+        connection.commit()
+        return(int(count['case_count']))
+    except Exception as e:
+        return (e)
+    
 
 def get_login(connection,username,password):
     cursor=connection.cursor(dictionary=True)
