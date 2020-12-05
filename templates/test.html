@@ -1,5 +1,5 @@
 {% extends "map_base.html" %}
-{% block title %} Home {% endblock %}
+{% block title %}Self Assessment{% endblock %}
 {% block head %} {{ super() }} {% endblock %}
 
 {%block content %}
@@ -67,6 +67,10 @@
       font-weight: 200;
       text-align: center;
       }
+      h5{
+      font-weight: 20;
+      text-align: left;
+      }
       .testbox {
       display: flex;
       justify-content: center;
@@ -113,45 +117,70 @@
   </head>
   <body>
     <div class="testbox">
-      <form action="/">
+      <form action="/test" method="POST">
+      <input type="hidden" name="myforms" value="submit answers">
         <h1>Self Assessment</h1>
         <h2>Please answer all questions as accurately as possible</h2>
 
         <div>
           <h4>What is your gender?</h4>
           <div class="question-answer">
-            <label><input type="radio" value="none" name="meet" />Female</label>
-            <label><input type="radio" value="none" name="meet" />Male</label>
-            <label><input type="radio" value="none" name="meet" />Other</label>
-            <label><input type="radio" value="none" name="meet" />Prefer not to answer</label>
+            <label><input type="radio" value="female" name="Female" />Female</label>
+            <label><input type="radio" value="male" name="Male" />Male</label>
+            <label><input type="radio" value="other" name="Other" />Other</label>
+            <label><input type="radio" value="declined" name="declined" />Prefer not to answer</label>
           </div>
         </div>
         <div>
           <h4>In which of the following ranges does your age fall?</h4>
           <div class="question-answer">
-            <label><input type="radio" value="none" name="involved" />5-17</label>
-            <label><input type="radio" value="none" name="involved" />18-29</label>
-            <label><input type="radio" value="none" name="involved" />30-39</label>
-            <label><input type="radio" value="none" name="involved" />40-49</label>
-            <label><input type="radio" value="none" name="involved" />50-64</label>
-            <label><input type="radio" value="none" name="involved" />65-74</label>
-            <label><input type="radio" value="none" name="involved" />75-84</label>
-            <label><input type="radio" value="none" name="involved" />85+</label>
+            <label><input type="radio" value="5-17"  name="5-17" />5-17</label>
+            <label><input type="radio" value="18-29" name="18-29" />18-29</label>
+            <label><input type="radio" value="30-39" name="30-39" />30-39</label>
+            <label><input type="radio" value="40-49" name="40-49" />40-49</label>
+            <label><input type="radio" value="50-64" name="50-64" />50-64</label>
+            <label><input type="radio" value="65-74" name="65-74" />65-74</label>
+            <label><input type="radio" value="75-84" name="75-84" />75-84</label>
+            <label><input type="radio" value="85+" name="85+" />85+</label>
           </div>
         </div>
-        <div>
-          <h4>Do you have any of these life-threatening symptoms? (Select all that apply)</h4>
-          <div class="question-answer">
-           {% for c in life_list %}
-           <label><input type="checkbox" id="{{c.name}}" name="{{c.name}}" value="{{c.name}}"/>{{c.name}}</label>
-            {% endfor %}
-          </div>
-        </div>
+   
         <div>
           <h4>Do you feel sick?</h4>
           <div class="question-answer">
-            <label><input type="radio" value="none" name="visited" />Yes</label>
-            <label><input type="radio" value="none" name="visited" />No</label>
+            <label><input type="radio" value="yes" name="ill" />Yes</label>
+            <label><input type="radio" value="no" name="not_ill" />No</label>
+          </div>
+        </div>
+
+        <div>
+          <h4>Within the past 14 days have you had close contact for longer than 15 minutes with anyone confirmed to have Covid-19?</h4>
+          <div class="question-answer">
+            <label><input type="radio" value="yes" name="cc" />Yes</label>
+            <label><input type="radio" value="no" name="n_cc" />No</label>
+          </div>
+        </div>
+
+          <div>
+          <h4>Do you have any of the following conditions? <br>
+            <ul>
+              <h5>
+              <li>Cancer<br></li>
+              <li>Chronic kidney disease<br></li>
+              <li>COPD <br></li>
+              <li>Heart conditions, such as heart failure, coronary artery disease, or cardiomyopathies<br></li>
+              <li>Immunocompromised state (weakened immune system) from solid organ transplant<br></li>
+              <li>Obesity <br></li>
+              <li>Pregnancy <br></li>
+              <li>Sickle cell disease<br></li>
+              <li>Smoking<br></li>
+              <li>Type 2 diabetes mellitus</li>
+              </h5>
+          </ul>
+          </h4>
+          <div class="question-answer">
+            <label><input type="radio" value="yes" name="pre_exs" />Yes</label>
+            <label><input type="radio" value="no" name="non_pre_exs" />No</label>
           </div>
         </div>
 
@@ -164,17 +193,9 @@
           </div>
         </div>
 
-          <div>
-          <h4>Do you have any of the following? (Select all that apply)</h4>
-           <div class="question-answer">
-           {% for c in pre_list %}
-           <label><input type="checkbox" id="{{c.name}}" name="{{c.name}}" value="{{c.name}}"/>{{c.name}}</label>
-            {% endfor %}
-          </div>
-        </div>
-
+    
         <div class="btn-block">
-          <button type="submit" href="/">Send</button>
+          <button type="submit" href="/">Submit</button>
         </div>
       </form>
     </div>

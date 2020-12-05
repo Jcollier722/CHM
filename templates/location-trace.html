@@ -1,35 +1,176 @@
-{% extends "base.html" %}
-{% block title %}Contact Tracing{% endblock %}
-{% block head %}
-  {{ super() }}
+{% extends "map_base.html" %}
+{% block title %}Self Assessment{% endblock %}
+{% block head %} {{ super() }} {% endblock %}
+
+{%block content %}
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('index') }}">
+          <img src="http://jakecollier.tech/images/logo.png" style = "width: 50%" alt="">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="true" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('index') }}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('test') }}">Self Assessment</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('heatmap') }}">View Heatmap</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('login') }}">Admin</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 {% endblock %}
 
-{% block content %}
-<body>   
-<div class="result" style="margin-left:300px; margin-right:300px; margin-top:150px; text-align:center; padding:20px; background-color:white; border-style:solid; border-color:black; border-width:3px; font-family: Arial">
-    <h1>You have scored {{score}}.</h1>
-     
-     <p>
-     This score is on the higher end of the risk threshold, meaning you have an increased chance of contracting Covid-19. Please follow up with your healthcare professional. We recommend self-isolation for at least 14 days, or until a Covid test can be performed.<br></br></p>
+{% block body %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://rawcdn.githack.com/karolsw3/gradientify/7f5a74cd8380a843477b7abfa9baca2fd127013a/dist/gradientify.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    
+    <style>
+      html, body {
+      min-height: 100%;
+      }
+      body, div, form, input, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 16px;
+      color: #666;
+      line-height: 28px;
+      }
+      h1{
+      font-weight: 400 bold;
+      text-align: center;
+      }
+      h4 {
+      margin: 25px 0 5px;
+      color: #095484;
+      }
+      h2 {
+      font-weight: 200;
+      text-align: center;
+      }
+      h5{
+      font-weight: 20;
+      text-align: center;
+      }
+      .testbox {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: inherit;
+      padding: 3px;
+      }
+      form {
+      width: 55%;
+      padding: 30px;
+      padding-bottom: 80px;
+      background: #fff;
+      border: 5px solid black;
+      box-shadow: 0 2px 5px #ccc; 
+      }
+      input {
+      width: auto;
+      margin-right: 15px;
+      vertical-align: middle;
+      }
+      .question-answer label {
+      display: block;
+      padding-right: 15px;
+      text-align: left;
+      }
+      .question-answer_2 label {
+      display: block;
+      padding-right: 15px;
+      text-align: left;
+      }
+      .question-answer_3 label {
+      display: block;
+      padding-right: 15px;
+      text-align: left;
+      }
+      .btn-block {
+      margin-top: 20px;
+      text-align: center;
+      }
+      button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      -webkit-border-radius: 5px; 
+      -moz-border-radius: 5px; 
+      border-radius: 5px; 
+      background-color: #095484;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      button:hover {
+      background-color: #0666a3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="testbox">
+      <form action="/test" method="POST">
+      <input type="hidden" name="myforms" value="submit answers">
+        <h1>You have scored: {{score}}/20.</h1>
+        <h2>This places you in the {{factor}} category.</h2>
+        <h5>To help improve the accuracy of the tool, please provide any locations you have visited in the past 14 days.</h5>
+        
+        <div style="position: relative;left: 74%;
+                    transform: translateX(-50%);">
+          <div style="float:left;">
+           <div class="question-answer">
+           {% for c in location_list_1 %}
+           <label><input type="checkbox" id="{{c.name}}" name="{{c.name}}" value="{{c.name}}"/>{{c.name}}</label>
+            {% endfor %}
+          </div>
+        </div>
+        
+          <div style="float:left;">
+           <div class="question-answer_2">
+           {% for c in location_list_2 %}
+           <label><input type="checkbox" id="{{c.name}}" name="{{c.name}}" value="{{c.name}}"/>{{c.name}}</label>
+            {% endfor %}
+          </div>
+        </div>
 
-    <h1>Location Tracing:</h1>
-    <p>To improve the accuracy of Stockton University heat map, please provide the campus locations you have visited in the last 14 days.</p>
+        <div style="float:left;">
+           <div class="question-answer_3">
+           {% for c in location_list_3 %}
+           <label><input type="checkbox" id="{{c.name}}" name="{{c.name}}" value="{{c.name}}"/>{{c.name}}</label>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
 
-    <div style="text-align: left">
-
-    <form action="/location-trace" method = "POST">
-
-        <input type="hidden" name="myforms" value="submit locs">
-
-        {% for c in location_list %}
-        <input type="checkbox" id="{{c.name}}" name="{{c.name}}" value="{{c.name}}">
-            <label for="{{c.name}}">{{c.name}}</label><br>
-        {% endfor %}
-
-    <button class="submit">Submit Responses</button>
-    </form>   
+      <div style="position: absolute;left: 0%; bottom: 2%; right: 0%;">
+        <div class="btn-block">
+          <button type="submit" href="/">Submit</button>
+        </div>
+      </div>
+      </form>
     </div>
+  </body>
+</html>
 
-</div>
-</body>
 {% endblock %}

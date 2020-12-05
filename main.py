@@ -9,6 +9,7 @@ from collections import defaultdict
 from flask import Markup
 from multiprocessing.dummy import Pool as ThreadPool
 import pandas as pd
+import numpy as np
 import map_data as md
 import admin as ad
 import covid_analysis as ca
@@ -102,17 +103,18 @@ def test():
                     users_syms.append(index)
                     
             score=(ca.process_answers(db.get_connection(),users_syms))
-
-            if(score == "low"):
-                session['score']='Low Risk'
+            
+            if(score[1] == "low"):
+                session['factor']='low risk'
+                session['score']=str(score[0])
                 return redirect(url_for('low'))
-
-            if(score == "medium" or score == "high"):
-                session['score']= (score.capitalize()+" Risk")
+            
+            if(score[1] == "high" or score[1] == "medium"):
+                session['factor']=(str(score[1])+ " risk")
+                session['score']=str(score[0])
+                
                 return redirect(url_for('high'))
-                
-                
-    
+ 
     return render_template('test.html',sym_list=sym_list,life_list=life_list,pre_list=pre_list)
 
 @app.route('/adminHome', methods=['GET', 'POST'])
@@ -173,19 +175,30 @@ def admin_home():
 
 @app.route('/lowscore', methods=['GET', 'POST'])
 def low():
-    score = session['score']
+    
+    factor = session['factor']
+    score =  session['score']
     
     if request.method == 'POST':
         if request.form["myforms"]=="view heat":
             return redirect(url_for('heatmap'))
         
-    return render_template('lowscore.html',score=score)
+    return render_template('lowscore.html',score=score,factor=factor)
 
 @app.route('/location-trace', methods=['GET', 'POST'])
 def high(threads=16):
+    
     score = session['score']    
+    factor = session['factor']
+    
     location_list=ad.get_location_list(db.get_connection())
 
+    location_list_split = np.array_split(location_list, 3)
+    
+    location_list_1=location_list_split[0]
+    location_list_2=location_list_split[1]
+    location_list_3=location_list_split[2]
+    
     locations_visited=[]
     if request.method == 'POST':
         if request.form["myforms"]=="submit locs":
@@ -199,7 +212,9 @@ def high(threads=16):
             return redirect(url_for('heatmap'))
             
     
-    return render_template('location-trace.html',score=score,location_list=location_list)
+    return render_template('location-trace.html',score=score,factor=factor,location_list_1=location_list_1,
+                           location_list_2=location_list_2,
+                           location_list_3=location_list_3)
 
 if __name__ == '__main__':
     app.run(extra_files='templates\location-trace.html')
