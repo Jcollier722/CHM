@@ -113,7 +113,7 @@ def test():
                 session['factor']=(str(score[1])+ " risk")
                 session['score']=str(score[0])
                 
-                return redirect(url_for('high'))
+                return redirect(url_for('rec'))
  
     return render_template('test.html',sym_list=sym_list,life_list=life_list,pre_list=pre_list)
 
@@ -175,7 +175,6 @@ def admin_home():
 
 @app.route('/lowscore', methods=['GET', 'POST'])
 def low():
-    
     factor = session['factor']
     score =  session['score']
     
@@ -185,9 +184,17 @@ def low():
         
     return render_template('lowscore.html',score=score,factor=factor)
 
+@app.route('/recommendations', methods=['GET', 'POST'])
+def rec():
+    factor = session['factor']
+    if request.method == 'POST':
+        if request.form["myforms"]=="do trace":
+            return redirect(url_for('high'))
+    
+    return render_template('recommendations.html',factor=factor)
+
 @app.route('/location-trace', methods=['GET', 'POST'])
 def high(threads=16):
-    
     score = session['score']    
     factor = session['factor']
     
