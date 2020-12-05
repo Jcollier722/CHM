@@ -29,11 +29,11 @@ def heatmap():
     stockton_map = folium.Map(location=start_coords, zoom_start=16,width='100%',height='75%')
     
     #create a colormap for legend
-    colormap = cm.LinearColormap(colors=['lightblue','green','yellow','red'], index=[0,25,50,100],vmin=0,vmax=100)
-    colormap.add_to(stockton_map)
+    #colormap = cm.LinearColormap(colors=['lightblue','green','yellow','red'], index=[0,25,50,100],vmin=0,vmax=100)
+    #colormap.add_to(stockton_map)
 
     #feature group to store location markers
-    marker_group=folium.FeatureGroup(name="Building Markers",show=True)
+    marker_group=folium.FeatureGroup(name="Building Markers",show=False)
     stockton_map.add_child(marker_group)
 
     #feature group for heat data
@@ -46,7 +46,8 @@ def heatmap():
                             data=df,
                             columns=['name','case_count'],
                             key_on='feature.properties.name',
-                            fill_color = 'OrRd'
+                            fill_color = 'OrRd',
+                            legend_name='Number of Covid-19 Cases',
                             ).add_to(stockton_map)
     
     #get all the known locations on campus
@@ -171,7 +172,7 @@ def admin_home():
                                sym_list=sym_list,
                                user=session['username'])
     else:
-        return 'Sorry, you must login to view this page'
+        return redirect(url_for('login'))
 
 @app.route('/lowscore', methods=['GET', 'POST'])
 def low():

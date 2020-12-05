@@ -74,9 +74,9 @@ def process_answers(connection,user_answers):
     #determine risk factor based on score
     if(0 <= risk_score <= 6):
         risk_factor = "low"
-    elif(6 <= risk_score <= 14):
+    elif(6 <= risk_score <= 11):
         risk_factor = "medium"
-    elif(14 <= risk_score <= 20):
+    elif(11 <= risk_score <= 20):
         risk_factor = "high"
 
     #return tuple of risk score and factor
