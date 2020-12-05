@@ -1,18 +1,48 @@
-{% extends "base.html" %}
-{% block title %}Home{% endblock %}
-{% block head %}
-  {{ super() }}
- {% endblock %}
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+</head>
+<body style="background-color:#3498DB;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('index') }}">
+          <img src="http://jakecollier.tech/images/logo.png" style = "width: 50%" alt="">
+    </a>
 
-{% block content %}
-    <h1>Welcome {{user}}</h1>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="true" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('index') }}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('test') }}">Self Assessment</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('heatmap') }}">View Heatmap</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('login') }}">Admin</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<h1>Welcome {{user}}</h1>
 
 <style type="text/css">
-		#topright {
-		    position: absolute;
-		    right: 0;
-		    top: 0;
-		}	
+    #topright {
+        position: absolute;
+        right: 0;
+        top: 0;
+    } 
 </style>
 
 <form method="POST" >
@@ -23,52 +53,52 @@
 </div>
 </form>
 
-<form class="form-horizontal" action="/adminHome" method="POST" 
+<form action="/adminHome" method="POST" 
 style = "border-style: solid; width:100%;
-	position: relative;
-    top: 13%;
+  position: relative;
+    top: 0%;
     left: 0%;"> 
 
 <input type="hidden" name="myforms" value="add loc">
 
 <fieldset>
-		<!-- Form Name -->
-		<legend>Add a location</legend>
-		<!-- Text input-->
-		<div class="form-group">
-		  <label class="col-md-4 control-label" for="textinput">Location Name</label>  
-		  <div class="col-md-4">
-		  <input id="textinput" name="name" type="text" placeholder="" class="form-control input-md" required="">   
-		  </div>
-		</div>
-		<!-- Text input-->
-		<div class="form-group">
-		  <label class="col-md-4 control-label" for="textinput">Location Longitude</label>  
-		  <div class="col-md-4">
-		  <input id="textinput" name="lon" type="text" placeholder="" class="form-control input-md">
-		  </div>
-		</div>
-		<!-- Text input-->
-		<div class="form-group">
-		  <label class="col-md-4 control-label" for="textinput">Location Latitude</label>  
-		  <div class="col-md-4">
-		  <input id="textinput" name="lat" type="text" placeholder="" class="form-control input-md">
-		    
-		  </div>
-		</div>
-		<!-- Button -->
-		<div class="form-group">
-		  <label class="col-md-4 control-label" for="singlebutton"></label>
-		  <div class="col-md-4">
-		    <input type="submit" value="Submit" class="btn btn-primary"></button>
-		  </div>
-		</div>
-		</fieldset>
+    <!-- Form Name -->
+    <legend>Add a location</legend>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Location Name</label>  
+      <div class="col-md-4">
+      <input id="textinput" name="name" type="text" placeholder="" class="form-control input-md" required="">   
+      </div>
+    </div>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Location Longitude</label>  
+      <div class="col-md-4">
+      <input id="textinput" name="lon" type="text" placeholder="" class="form-control input-md">
+      </div>
+    </div>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Location Latitude</label>  
+      <div class="col-md-4">
+      <input id="textinput" name="lat" type="text" placeholder="" class="form-control input-md">
+        
+      </div>
+    </div>
+    <!-- Button -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="singlebutton"></label>
+      <div class="col-md-4">
+        <input type="submit" value="Submit" class="btn btn-primary"></button>
+      </div>
+    </div>
+    </fieldset>
 </form>
 
 <form class="form-horizontal" action="/adminHome" method="POST" style = "border-style: solid; width:100%;
-	position: relative;
-    top: 13%;
+  position: relative;
+    top: 0%;
     right: 0%;">
 
 <input type="hidden" name="myforms" value="rem loc">
@@ -84,8 +114,8 @@ style = "border-style: solid; width:100%;
   <div class="col-md-4">
     <select id="selectbasic" name="selectbasic" class="form-control">
       {% for c in location_list %}
-		<OPTION value="{{c.name}}">{{c.name}}</option>
-	  {% endfor %}
+    <OPTION value="{{c.name}}">{{c.name}}</option>
+    {% endfor %}
     </select>
   </div>
 </div>
@@ -101,10 +131,10 @@ style = "border-style: solid; width:100%;
 </form>
 
 <form class="form-horizontal" action="/adminHome" method="POST" style = "border-style: solid; width:100%;
-	position: relative;
-    top: 53%;
+  position: relative;
+    top: 0%;
     left: 0%;">
-	<input type="hidden" name="myforms" value="add user">
+  <input type="hidden" name="myforms" value="add user">
 <fieldset>
 
 <!-- Form Name -->
@@ -140,10 +170,10 @@ style = "border-style: solid; width:100%;
 </form>
 
 <form class="form-horizontal" action="/adminHome" method="POST" style = "border-style: solid; width:100%;
-	position: relative;
-    top: 53%;
+  position: relative;
+    top: 0%;
     left: 0%;">
-	<input type="hidden" name="myforms" value="add sym">
+  <input type="hidden" name="myforms" value="add sym">
 <fieldset>
 
 <!-- Form Name -->
@@ -155,8 +185,8 @@ style = "border-style: solid; width:100%;
   <div class="col-md-4">
     <select id="selectbasic" name="cluster" class="form-control">
       {% for c in cluster_list %}
-		<OPTION value="{{c.cluster_id}}">{{c.cluster_id}}</option>
-	  {% endfor %}
+    <OPTION value="{{c.cluster_id}}">{{c.cluster_id}}</option>
+    {% endfor %}
     </select>
   </div>
 </div>
@@ -183,10 +213,10 @@ style = "border-style: solid; width:100%;
 
 
 <form class="form-horizontal" action="/adminHome" method="POST" style = "border-style: solid; width:100%;
-	position: relative;
-    top: 53%;
+  position: relative;
+    top: 0%;
     left: 0%;">
-	<input type="hidden" name="myforms" value="rem sym">
+  <input type="hidden" name="myforms" value="rem sym">
 <fieldset>
 <!-- Form Name -->
 <legend>Delete Symptom</legend>
@@ -197,8 +227,8 @@ style = "border-style: solid; width:100%;
   <div class="col-md-4">
     <select id="selectbasic" name="sym" class="form-control">
       {% for c in sym_list %}
-		<OPTION value="{{c.name}}">{{c.name}}</option>
-	  {% endfor %}
+    <OPTION value="{{c.name}}">{{c.name}}</option>
+    {% endfor %}
     </select>
   </div>
 </div>
@@ -213,6 +243,3 @@ style = "border-style: solid; width:100%;
 
 </fieldset>
 </form>
-
-
- {% endblock %}
