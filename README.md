@@ -29,3 +29,8 @@ Jake Collier
 Ryan Carney  
 John Hughes  
 Ngoc Ta
+
+##Acknowledgments
+HomePage template (https://html5up.net/story)
+HomePage Assets (http://paul-themes.com/)
+
